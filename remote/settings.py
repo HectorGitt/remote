@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-sih+gdw!g&)ways_6bt3g(^q!#=rnpb_y#=7z=b&o!*es_t&*7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -39,16 +39,26 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gigs',
+    'tailwind',
+    'theme',
+    'django_browser_reload',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django_browser_reload.middleware.BrowserReloadMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+TAILWIND_APP_NAME = 'theme'
+INTERNAL_IPS = [
+    '127.0.0.1',
 ]
 
 ROOT_URLCONF = 'remote.urls'
@@ -56,7 +66,7 @@ ROOT_URLCONF = 'remote.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,9 +78,11 @@ TEMPLATES = [
         },
     },
 ]
+TAILWIND_CSS_PATH = 'css/dist/styles.css'
 
 WSGI_APPLICATION = 'remote.wsgi.application'
 
+NPM_BIN_PATH = r"C:/Users/USER/AppData/Roaming/nvm/v19.6.0/npm.cmd"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -130,6 +142,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    'theme/static/',
+]
 MEDIA_ROOT=config('MEDIA_ROOT')
 MEDIA_URL=''
 
@@ -140,3 +155,8 @@ ADMINS = [('Hector', 'adeniyi.olaitanhector@yahoo.com')]
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#Auth settings
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
