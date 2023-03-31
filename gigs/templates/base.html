@@ -1,0 +1,34 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        {% endblock  %}
+    </title>
+    {% tailwind_css %}
+</head>
+<body>
+
+        {% block content %}
+        
+        
+        {% endblock  %}
+
+    {% comment %} <script type="text/javascript">
+        //rewrite this in vanilla js
+        document.addEventListener('DOMContentLoaded', function() {
+            var spinner = document.querySelector('.spinner-cont');
+            var content = document.querySelector('.content');
+            spinner.classList.add('hidden');
+            content.classList.remove('hidden');
+        });
+    </script> {% endcomment %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.js"></script>
+    {% block script %}
+    {% endblock  %}
+</body>
+</html>
