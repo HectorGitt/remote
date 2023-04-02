@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import ProfileForm
+from .forms import UserForm, TaskForm
 from django.contrib.auth.decorators import login_required
+from .models import User, Category, Task
 
 # Create your views here.
 def home(request):
@@ -9,7 +10,7 @@ def home(request):
     return render(request, 'index.html', {'user': user})
 def signup(request):
     if request.method == 'POST':
-        form = ProfileForm(request.POST)
+        form = UserForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
@@ -17,16 +18,18 @@ def signup(request):
             print('Account created for {username}')
             return redirect('login')
     else:
-        form = ProfileForm()
+        form = UserForm()
     return render(request, 'registration/register.html', {'form': form})
 
 @login_required
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    profile = User.objects.filter(username=request.user.username).first()
+    return render(request, 'dashboard.html', {'profile': profile})
 
 @login_required
 def jobs(request):
-    return render(request, 'jobs.html')
+    tasks = Task.objects.filter(status='APPROVED')
+    return render(request, 'jobs.html', {'tasks': tasks})
 
 @login_required
 def post_job(request):
@@ -34,7 +37,29 @@ def post_job(request):
 
 @login_required
 def post_job_new(request):
-    return render(request, 'post_gig/post_gig.html')
+    if request.method == 'POST':
+        form = TaskForm(request.POST, request.FILES)
+        if form.is_valid():
+            task = form.save(commit=False)
+            try:
+                task.cost = task.unit_price * task.total_participants
+                task.owner = User.objects.filter(username=request.user.username).first()
+                task.save()
+                return redirect('dashboard')
+            except Exception as e:
+                #push error to form and return to form
+                print(e)
+                return redirect('post_job_new')
+            
+                
+                
+            
+        else:
+            print(form.errors)
+    else:
+        form = TaskForm()
+    return render(request, 'post_gig/post_gig.html', {'form': form})
+    
 
 @login_required
 def profile(request):
