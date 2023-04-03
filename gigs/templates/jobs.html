@@ -85,49 +85,48 @@
             </div>
             <div class="overflow-x-auto">      
                 <div class="relative overflow-x-auto">
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th scope="col" class="px-6 py-3">
-                                    Task Title
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Category
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Price
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Participants
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <div class="w-full flex flex-col text-sm text-left text-gray-500 dark:text-gray-400">
+                        <div class="text-xs grid grid-cols-5 text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        
+                            <p scope="col" class="px-6 py-3 col-span-1">
+                                Task Title
+                            </p>
+                            <p scope="col" class="px-6 py-3">
+                                Category
+                            </p>
+                            <p scope="col" class="px-6 py-3">
+                                Price
+                            </p>
+                            <p scope="col" class="px-6 py-3">
+                                Participants
+                            </p>
+                            <p scope="col" class="px-6 py-3">
+                                Time
+                            </p>
+                        </div>
+                        <div>
                             {% for task in tasks  %}
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-700 cursor-pointer">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <a href={{task.get_url}} class="bg-white border-b grid grid-cols-5 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-700 cursor-pointer">
+                                <p scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{ task.title }}
-                                </th>
-                                <td class="px-6 py-4">
+                                </p>
+                                <p class="px-6 py-4">
                                     {{ task.category }}
-                                </td>
-                                <td class="px-6 py-4">
+                                </p>
+                                <p class="px-6 py-4">
                                     &#8358;{{ task.unit_price }}
-                                </td>
-                                <td class="px-6 py-4">
+                                </p>
+                                <p class="px-6 py-4">
                                     {{task.registered_count}}/{{ task.total_participants }}
-                                </td>
-                                <td class="px-6 py-4">
+                                </p>
+                                <p class="px-6 py-4">
                                     {{ task.date_created|timesince }} ago
-                                </td>
-                            </tr>
+                                </p>
+                            </a>
                             {% endfor %}
                             
-                        </tbody>
-                    </table>
+                        </div>
+                    </div>
                 </div>
 
             </div>
