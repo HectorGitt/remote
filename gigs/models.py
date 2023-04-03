@@ -37,7 +37,6 @@ class Task(models.Model):
         (REJECTED, 'Rejected')
     ]
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    slug = models.SlugField(max_length=100, unique=True)
     title = models.CharField(max_length=100)
     description = models.TextField()
     unit_price = models.PositiveIntegerField(default=1)
@@ -49,7 +48,20 @@ class Task(models.Model):
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=PENDING)
 
     def __str__(self):
-        return self.title 
+        return self.title
+    
+    def registered_count(self):
+        return UserTask.objects.filter(task=self).count()
+    
+    def is_registered(self, user):
+        return UserTask.objects.filter(task=self, user=user).exists()
+    
+    def is_approved(self):
+        return self.status == self.APPROVED
+    
+    def is_rejected(self):
+        return self.status == self.REJECTED
+
     
 class UserTask(models.Model):
     PENDING = 'PENDING'
