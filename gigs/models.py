@@ -46,6 +46,7 @@ class Task(models.Model):
     tags = models.CharField(max_length=100)
     sample_image = models.ImageField(upload_to='media/', blank=True, null=True)
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=PENDING)
+    date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
