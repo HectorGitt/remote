@@ -4,6 +4,7 @@ from django.db import models
 
 #django user model
 from django.contrib.auth.models import AbstractUser
+from datetime import datetime
 
 
 # Create your models here.
@@ -46,7 +47,7 @@ class Task(models.Model):
     tags = models.CharField(max_length=100)
     sample_image = models.ImageField(upload_to='media/', blank=True, null=True)
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=PENDING)
-    date_created = models.DateTimeField(auto_now_add=True)
+    date_created = models.DateTimeField(auto_now_add=True, editable=False)
 
     def __str__(self):
         return self.title
@@ -62,6 +63,11 @@ class Task(models.Model):
     
     def is_rejected(self):
         return self.status == self.REJECTED
+    
+    class Meta:
+        ordering = ['-date_created']
+    
+    
 
     
 class UserTask(models.Model):
