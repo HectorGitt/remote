@@ -23,6 +23,11 @@
                 {% endfor %}
             </div>
         {% endif %}
+        {% for error in form.non_field_errors %}
+            <div class="text-red-500 mb-8 text-center">
+                {{error}}
+            </div>
+        {% endfor %}
     
       <form class="mt-8 space-y-6" method="POST">
         {% csrf_token %}
