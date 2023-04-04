@@ -64,3 +64,8 @@ def post_job_new(request):
 @login_required
 def profile(request):
     return render(request, 'profile.html')
+
+@login_required
+def task_details(request, slug):
+    task = Task.objects.filter(slug=slug).first()
+    return render(request, 'task_details.html', {'task': task})
