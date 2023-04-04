@@ -3,6 +3,7 @@ from django.contrib import messages
 from .forms import UserForm, TaskForm
 from django.contrib.auth.decorators import login_required
 from .models import User, Category, Task
+from django.views.generic import ListView
 
 # Create your views here.
 def home(request):
@@ -26,10 +27,11 @@ def dashboard(request):
     profile = User.objects.filter(username=request.user.username).first()
     return render(request, 'dashboard.html', {'profile': profile})
 
-@login_required
-def jobs(request):
-    tasks = Task.objects.filter(status='APPROVED')
-    return render(request, 'jobs.html', {'tasks': tasks})
+class TaskListView(ListView):
+    model = Task
+    template_name = 'jobs.html'
+    context_object_name = 'tasks'
+    paginate_by = 5
 
 @login_required
 def post_job(request):
