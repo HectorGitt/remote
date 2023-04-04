@@ -4,6 +4,7 @@ from django.db import models
 
 #django user model
 from django.contrib.auth.models import AbstractUser
+from autoslug import AutoSlugField
 from datetime import datetime
 
 
@@ -38,6 +39,7 @@ class Task(models.Model):
         (REJECTED, 'Rejected')
     ]
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    slug = AutoSlugField(populate_from='title', unique=True)
     title = models.CharField(max_length=100)
     description = models.TextField()
     unit_price = models.PositiveIntegerField(default=1)
@@ -63,6 +65,9 @@ class Task(models.Model):
     
     def is_rejected(self):
         return self.status == self.REJECTED
+    
+    def get_url(self):
+        return '/task/' + self.slug + '/'
     
     class Meta:
         ordering = ['-date_created']
