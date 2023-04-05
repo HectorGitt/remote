@@ -14,4 +14,5 @@ urlpatterns = [
     path('post_job_new/', views.post_job_new, name='post_job_new'),
     path('profile/', views.profile, name='profile'),
     path('task/<slug:slug>/', views.task_details, name='task'),
+    path('task/<slug:slug>/apply/', views.apply, name='apply'),
 ] + static(settings.STATIC_URL, document_root=settings.MEDIA_ROOT)
