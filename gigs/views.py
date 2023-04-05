@@ -27,6 +27,7 @@ def dashboard(request):
     profile = User.objects.filter(username=request.user.username).first()
     return render(request, 'dashboard.html', {'profile': profile})
 
+@method_decorator(login_required, name='dispatch')
 class TaskListView(ListView):
     model = Task
     template_name = 'jobs.html'
