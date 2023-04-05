@@ -92,7 +92,7 @@ class UserTask(models.Model):
     date_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.user.user.username + ' - ' + self.task.title
+        return self.user.username + ' - ' + self.task.title
 
 
 
