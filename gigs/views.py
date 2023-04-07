@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UserForm, TaskForm
 from django.contrib.auth.decorators import login_required
-from .models import User, Category, Task
+from .models import User, Category, Task, UserTask
 from django.views.generic import ListView
 
 # Create your views here.
