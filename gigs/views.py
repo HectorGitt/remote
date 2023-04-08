@@ -72,3 +72,21 @@ def profile(request):
 def task_details(request, slug):
     task = Task.objects.filter(slug=slug).first()
     return render(request, 'task_details.html', {'task': task})
+
+def apply(request, slug):
+    task = Task.objects.filter(slug=slug).first()
+    user = User.objects.filter(username=request.user.username).first()
+    if task:
+        if task.owner != user:
+            if task.is_registered(user) is not True:
+                UserTask.objects.create(user=user, task=task)
+                print('Applied')
+                return redirect(request.META.get('HTTP_REFERER'))
+            
+            else:
+                print('Already applied')
+                return redirect('dashboard')
+        else:
+            print('You cannot apply to your own task')
+            return redirect('home')
+    
