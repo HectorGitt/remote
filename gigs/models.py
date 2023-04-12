@@ -38,6 +38,16 @@ class Task(models.Model):
         (APPROVED, 'Approved'),
         (REJECTED, 'Rejected')
     ]
+
+    IN_PROGRESS = 'IN_PROGRESS'
+    ENDED = 'ENDED'
+    PAUSED = 'PAUSED'
+
+    STATE_CHOICES = [
+        (IN_PROGRESS, 'In Progress'),
+        (ENDED, 'Ended'),
+        (PAUSED, 'Paused')
+    ]
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = AutoSlugField(populate_from='title', unique=True)
     title = models.CharField(max_length=100)
@@ -48,7 +58,10 @@ class Task(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     tags = models.CharField(max_length=100)
     sample_image = models.ImageField(upload_to='media/', blank=True, null=True)
+    #admin acceptance status
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=PENDING)
+    #user status
+    state = models.CharField(max_length=100, choices=STATE_CHOICES, default=IN_PROGRESS)
     date_created = models.DateTimeField(auto_now_add=True, editable=False)
 
     def __str__(self):
