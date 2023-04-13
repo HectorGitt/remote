@@ -80,6 +80,9 @@ def apply(request, slug):
     user = User.objects.filter(username=request.user.username).first()
     if task:
         if task.owner != user:
+            if task.state != 'IN_PROGRESS':
+                print('Task is not in progress')
+                return redirect('dashboard')
             if task.is_registered(user) is not True:
                 UserTask.objects.create(user=user, task=task)
                 print('Applied')
