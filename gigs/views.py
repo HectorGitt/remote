@@ -32,6 +32,7 @@ def dashboard(request):
 @method_decorator(login_required, name='dispatch')
 class TaskListView(ListView):
     model = Task
+    queryset = Task.objects.filter(status='APPROVED').order_by('-date_created')
     template_name = 'jobs.html'
     context_object_name = 'tasks'
     paginate_by = 5
