@@ -49,7 +49,13 @@ def post_job_new(request):
             task = form.save(commit=False)
             try:
                 task.cost = task.unit_price * task.total_participants
-                task.owner = User.objects.filter(username=request.user.username).first()
+                owner = User.objects.filter(username=request.user.username).first()
+                if owner.wallet_balance < task.cost:
+                    print('Insufficient funds')
+                    return redirect('post_job_new')
+                owner.wallet_balance -= task.cost
+                owner.save()
+                task.owner = owner
                 task.save()
                 return redirect('dashboard')
             except Exception as e:
