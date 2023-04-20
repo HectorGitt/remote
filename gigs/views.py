@@ -101,4 +101,4 @@ def apply(request, slug):
         else:
             print('You cannot apply to your own task')
             return redirect('home')
-    
+    def get_queryset(self):
