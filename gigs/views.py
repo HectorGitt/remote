@@ -80,7 +80,11 @@ def profile(request):
 @login_required
 def task_details(request, slug):
     task = Task.objects.filter(slug=slug).first()
-    return render(request, 'task_details.html', {'task': task})
+    user = User.objects.filter(username=request.user.username).first()
+    is_owner = (task.owner == user)
+    if task.status != 'APPROVED' and not is_owner:
+        return redirect('dashboard')
+    return render(request, 'task_details.html', {'task': task, 'is_owner': is_owner})
 
 def apply(request, slug):
     task = Task.objects.filter(slug=slug).first()
