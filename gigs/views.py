@@ -101,4 +101,14 @@ def apply(request, slug):
         else:
             print('You cannot apply to your own task')
             return redirect('home')
+
+class PostedTaskListView(ListView):
+    model = Task
+    template_name = 'jobs.html'
+    paginate_by = 5
+    context_object_name = 'tasks'
+
     def get_queryset(self):
+        profile = User.objects.filter(username=self.request.user.username).first()
+        return Task.objects.filter(owner=profile).order_by('-date_created')
+
