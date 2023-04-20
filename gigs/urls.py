@@ -12,6 +12,7 @@ urlpatterns = [
     path('tasks/', views.TaskListView.as_view(), name='tasks'),
     path('post_job/', views.post_job, name='post_job'),
     path('post_job_new/', views.post_job_new, name='post_job_new'),
+    path('posted_tasks/', views.PostedTaskListView.as_view(), name='posted_tasks'),
     path('profile/', views.profile, name='profile'),
     path('task/<slug:slug>/', views.task_details, name='task'),
     path('task/<slug:slug>/apply/', views.apply, name='apply'),
