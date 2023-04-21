@@ -108,4 +108,8 @@ class UserTask(models.Model):
         return self.user.username + ' - ' + self.task.title
 
 
+class TaskOrder(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    order_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
