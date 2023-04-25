@@ -116,3 +116,10 @@ class PostedTaskListView(ListView):
         profile = User.objects.filter(username=self.request.user.username).first()
         return Task.objects.filter(owner=profile).order_by('-date_created')
 
+class EarningsListView(ListView):
+    template_name = 'earner/earnings.html'
+    context_object_name = 'earnings'
+    
+    def get_queryset(self):
+        profile = User.objects.filter(username=self.request.user.username).first()
+        return UserTask.objects.filter(owner=profile).order_by('-date_created')
