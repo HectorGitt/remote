@@ -108,7 +108,7 @@ def apply(request, slug):
 
 class PostedTaskListView(ListView):
     model = Task
-    template_name = 'jobs.html'
+    template_name = 'client/posted_tasks.html'
     paginate_by = 5
     context_object_name = 'tasks'
 
