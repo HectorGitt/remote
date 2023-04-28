@@ -13,10 +13,14 @@ import uuid
 class User(AbstractUser):
     Male = 'M'
     Female = 'F'
+    Client = 'CLIENT'
+    Worker = 'WORKER'
     GENDER = [ (Male,'Male'), (Female, 'Female')]
+    ROLE = [ (Client, 'Client'), (Worker, 'Worker')]
     gender = models.CharField(choices=GENDER, max_length=1)
     wallet_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     earnings = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    role = models.CharField(choices=ROLE, max_length=10, default=Client)
 
     def __str__(self):
         return self.username
