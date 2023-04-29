@@ -25,6 +25,9 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
     
+    def is_client(self):
+        return self.role == self.Client
+    
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
