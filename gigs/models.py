@@ -126,4 +126,7 @@ class TaskOrder(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     order_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
+
 
