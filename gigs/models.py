@@ -136,4 +136,27 @@ class UserReceipt(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
+class Transaction(models.Model):
+    DEPOSIT = 'DEPOSIT'
+    WITHDRAWAL = 'WITHDRAWAL'
+
+    PENDING = 'PENDING'
+    APPROVED = 'APPROVED'
+    DENIED = 'DENIED'
+
+    STATUS_CHOICES = [
+        (PENDING, 'Pending'),
+        (APPROVED, 'Approved'),
+        (DENIED, 'Denied')
+    ]
+    TRANSACTION_CHOICES = [
+        (DEPOSIT, 'Deposit'),
+        (WITHDRAWAL, 'Withdrawal')
+    ]
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    transaction_type = models.CharField(max_length=100, choices=TRANSACTION_CHOICES, default=DEPOSIT)
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=PENDING)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
 
