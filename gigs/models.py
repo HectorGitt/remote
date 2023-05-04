@@ -71,7 +71,7 @@ class Task(models.Model):
     unit_price = models.PositiveIntegerField(default=1)
     total_participants = models.PositiveIntegerField(default=1)
     cost = models.PositiveIntegerField(default=0)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     tags = models.CharField(max_length=100)
     sample_image = models.ImageField(upload_to='media/', blank=True, null=True)
     #admin acceptance status
