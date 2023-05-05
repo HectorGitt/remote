@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import User, Category, Task
+from .models import User, Category, Task, SubCategory, UserTask
 from django.contrib.auth.forms import UserCreationForm
 
 class UserForm(UserCreationForm):
