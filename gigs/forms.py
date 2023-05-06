@@ -21,3 +21,10 @@ class TaskForm(forms.ModelForm):
         'total_participants':forms.NumberInput(attrs={'max':999999999, 'min':1}),
         'cost':forms.NumberInput(attrs={'max':9999999999, 'min':500.00, 'readonly':True}),
         }
+
+class UserTaskForm(forms.ModelForm):
+    class Meta:
+        model = UserTask
+        fields = ['image1','image2','image3']
+
+    
