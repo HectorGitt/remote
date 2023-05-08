@@ -119,6 +119,7 @@ class UserTask(models.Model):
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=PENDING)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
+    comments = models.TextField(null=True)
     image1 = models.ImageField(upload_to='media/', blank=True, null=True)
     image2 = models.ImageField(upload_to='media/', blank=True, null=True)
     image3 = models.ImageField(upload_to='media/', blank=True, null=True)
