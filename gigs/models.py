@@ -28,7 +28,17 @@ class User(AbstractUser):
     def is_client(self):
         return self.role == self.Client
     
+class BankAccount(models.Model):
+    name = models.CharField(max_length=100)
+    account_number = models.CharField(max_length=100)
+    bank_name = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name + " - " + self.bank_name
+    
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
