@@ -218,6 +218,6 @@ ADMINS = [('Hector', 'adeniyi.olaitanhector@yahoo.com')]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #Auth settings
-LOGIN_REDIRECT_URL = '/dashboard'
+LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
 AUTH_USER_MODEL = 'gigs.User'
