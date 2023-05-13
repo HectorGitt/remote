@@ -26,6 +26,13 @@ class TaskForm(forms.ModelForm):
 class UserTaskForm(forms.ModelForm):
     class Meta:
         model = UserTask
-        fields = ['image1','image2','image3']
+class TransferEarningsForm(forms.Form):
+    amount = forms.DecimalField(max_digits=10, decimal_places=2, min_value=1000.00, max_value=9999999999)
+
+class ContactForm(forms.Form):
+    name = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
+    subject = forms.CharField(required=True)
+    message = forms.CharField(widget=forms.Textarea, required=True)
 
     
