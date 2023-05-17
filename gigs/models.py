@@ -106,6 +106,9 @@ class UserTask(models.Model):
 
     def __str__(self):
         return self.user.username + ' - ' + self.task.title
+    
+    def get_url(self):
+        return f'/applications/{self.id}/'
 
 
 class TaskOrder(models.Model):
