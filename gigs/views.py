@@ -171,6 +171,11 @@ def apply(request, slug):
                 print('Task is not in progress')
                 messages.info(request, 'Task is not in progress')
                 return redirect('dashboard')
+            if task.total_participants <= task.registered_count():
+                print(task.total_participants, task.registered_count())
+                print('Task is no longer available')
+                messages.info(request, 'Task is no longer available')
+                return redirect(request.META.get('HTTP_REFERER'))
             if task.is_registered(user) is not True:
                 user_task = form.save(commit=False)
                 user_task.user = user
