@@ -39,7 +39,8 @@ class TaskForm(forms.ModelForm):
 class UserTaskForm(forms.ModelForm):
     class Meta:
         model = UserTask
-class TransferEarningsForm(forms.Form):
+        fields = ['comments','image1','image2','image3']
+        
     amount = forms.DecimalField(max_digits=10, decimal_places=2, min_value=1000.00, max_value=9999999999)
 
 class ContactForm(forms.Form):
