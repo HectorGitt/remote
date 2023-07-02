@@ -23,6 +23,19 @@ class TaskForm(forms.ModelForm):
         'cost':forms.NumberInput(attrs={'max':9999999999, 'min':500.00, 'readonly':True}),
         }
 
+    def __init__(self,*args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["sub_category"].queryset = SubCategory.objects.none()
+
+        if 'category' in self.data:
+            try:
+                category_id = int(self.data.get('category'))
+                self.fields['sub_category'].queryset = SubCategory.objects.filter(category__id=category_id).order_by('name')
+            except (ValueError, TypeError):
+                pass
+        elif self.instance.pk:
+            self.fields['sub_category'].queryset = self.instance.category.subcategory_set.order_by('name')
+
 class UserTaskForm(forms.ModelForm):
     class Meta:
         model = UserTask
