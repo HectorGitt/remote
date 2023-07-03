@@ -23,6 +23,7 @@ urlpatterns = [
     path('task/<slug:slug>/end/', views.end_task, name='end_task'),
     path('task/<slug:slug>/applications/', views.TaskApplicationListView.as_view(), name='task_applications'),
     path('task/<slug:slug>/applications/approve_all/', views.approve_all_apps, name='approve_all_apps'),
+    path('applications/<slug:pk>/', views.ClientApplication.as_view(), name='client_application_view'),
     path('applications/<slug:id>/approve/', views.approve_app, name='approve_app'),
     path('applications/<slug:id>/reject/', views.reject_app, name='reject_app'),
     path('applications/', views.ApplicationListView.as_view(), name='applications'),
