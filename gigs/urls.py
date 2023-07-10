@@ -22,6 +22,7 @@ urlpatterns = [
     path('task/<slug:slug>/resume/', views.resume_task, name='resume_task'),
     path('task/<slug:slug>/end/', views.end_task, name='end_task'),
     path('task/<slug:slug>/applications/', views.TaskApplicationListView.as_view(), name='task_applications'),
+    path('user_update/bank_details/', views.BankDetailsView.as_view(), name='bank_details'),
     path('pay/', views.PayView.as_view(), name='pay'),
     path('transfer_earnings/', views.TransferEarningsView.as_view(), name='transfer_earnings'),
     path('transactions/', views.TransactionListView.as_view(), name='transaction_list'),
