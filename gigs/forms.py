@@ -13,6 +13,7 @@ class UserForm(UserCreationForm):
         model = User
         fields = ['username', 'first_name', 'last_name','email', 'password1', 'password2', 'gender']
 class TaskForm(forms.ModelForm):
+    category = forms.ModelChoiceField(queryset=Category.objects.all(), empty_label="Select Category", )
     class Meta:
         model = Task
         fields = ['title', 'description', 'unit_price', 'total_participants','cost', 'category', 'tags', 'sample_image']
