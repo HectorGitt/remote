@@ -22,4 +22,5 @@ urlpatterns = [
     path('task/<slug:slug>/resume/', views.resume_task, name='resume_task'),
     path('task/<slug:slug>/end/', views.end_task, name='end_task'),
     path('task/<slug:slug>/applications/', views.TaskApplicationListView.as_view(), name='task_applications'),
+    path('switch_role/', views.toggle_role, name='switch_role'),
 ] + static(settings.STATIC_URL, document_root=settings.MEDIA_ROOT)
