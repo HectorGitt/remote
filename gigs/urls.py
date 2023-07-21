@@ -18,4 +18,7 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('task/<slug:slug>/', views.task_details, name='task'),
     path('task/<slug:slug>/apply/', views.apply, name='apply'),
+    path('task/<slug:slug>/pause/', views.pause_task, name='pause_task'),
+    path('task/<slug:slug>/resume/', views.resume_task, name='resume_task'),
+    path('task/<slug:slug>/end/', views.end_task, name='end_task'),
 ] + static(settings.STATIC_URL, document_root=settings.MEDIA_ROOT)
