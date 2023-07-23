@@ -10,6 +10,7 @@ urlpatterns = [
     path('accounts/signup/', views.signup, name='signup'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('tasks/', views.TaskListView.as_view(), name='tasks'),
+    path('tasks/category/<int:id>/', views.TaskByCategoryListView.as_view(), name='tasks_category'),
     path('post_job/', views.post_job, name='post_job'),
     path('post_job_new/', views.post_job_new, name='post_job_new'),
     path('posted_tasks/', views.PostedTaskListView.as_view(), name='posted_tasks'),
