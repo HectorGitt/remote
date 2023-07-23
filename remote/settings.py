@@ -221,6 +221,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
 AUTH_USER_MODEL = 'gigs.User'
+
+#Paystack settings
+PAYSTACK_SECRET_KEY = config('PAYSTACK_SECRET_KEY')
+
+#EMAIL SETTINGS
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+ADMINS = [('Hector', 'adeniyi.olaitanhector@yahoo.com')]
+
 EMAIL_HOST= config('EMAIL_HOST')
 EMAIL_HOST_USER= config('EMAIL_HOST_USER')
 EMAIL_PORT= config('EMAIL_PORT', cast=int)
