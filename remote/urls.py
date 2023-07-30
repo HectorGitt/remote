@@ -18,7 +18,7 @@ from django.urls import path, include
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     path("__reload__/", include("django_browser_reload.urls")),
     path('', include('gigs.urls')),
     path('tinymce/', include('tinymce.urls')),
