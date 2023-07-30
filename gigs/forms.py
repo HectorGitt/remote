@@ -41,6 +41,7 @@ class UserTaskForm(forms.ModelForm):
         model = UserTask
         fields = ['comments','image1','image2','image3']
         
+class TransactionForm(forms.Form):
     amount = forms.DecimalField(max_digits=10, decimal_places=2, min_value=1000.00, max_value=9999999999)
 
 class ContactForm(forms.Form):
