@@ -16,11 +16,13 @@ django-compressor==4.3.1
 django-jazzmin==2.6.0
 django-tailwind==3.5.0
 django-tinymce==3.6.1
+gunicorn==21.2.0
 idna==3.4
 Jinja2==3.1.2
 jinja2-time==0.2.0
 MarkupSafe==2.1.2
 mysqlclient==2.1.1
+packaging==23.1
 Pillow==9.4.0
 python-dateutil==2.8.2
 python-decouple==3.8
