@@ -45,7 +45,7 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                primary: colors.blue,
+                primary: colors.orange,
                 secondary: colors.gray,
                 accent: colors.amber,
                 success: colors.green,
@@ -66,5 +66,6 @@ module.exports = {
         require('@tailwindcss/line-clamp'),
         require('@tailwindcss/aspect-ratio'),
     ],
+    
     
 }

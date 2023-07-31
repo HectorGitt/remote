@@ -5,6 +5,7 @@ from django.db import models
 #django user model
 from django.contrib.auth.models import AbstractUser
 from autoslug import AutoSlugField
+from django.core.exceptions import ValidationError
 from datetime import datetime
 import uuid
 
@@ -32,7 +33,7 @@ class BankAccount(models.Model):
     name = models.CharField(max_length=100)
     account_number = models.CharField(max_length=100)
     bank_name = models.CharField(max_length=100)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bank_account')
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
@@ -52,7 +53,7 @@ class SubCategory(models.Model):
     percentage_fee = models.DecimalField(max_digits=10, decimal_places=2, default=15.00)
 
     def __str__(self):
-        return self.name
+        return self.name + " - " + self.category.name
 
 class Task(models.Model):
     PENDING = 'PENDING'
@@ -89,6 +90,7 @@ class Task(models.Model):
     #user status
     state = models.CharField(max_length=100, choices=STATE_CHOICES, default=IN_PROGRESS)
     date_created = models.DateTimeField(auto_now_add=True, editable=False)
+    rejection_reason = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -109,7 +111,39 @@ class Task(models.Model):
         return '/task/' + self.slug + '/'
     
     class Meta:
-        ordering = ['-date_created']
+        ordering = ['-id']
+    __original_status = None
+
+    def __init__(self, *args, **kwargs):
+        super(Task, self).__init__(*args, **kwargs)
+        self.__original_status = self.status
+
+    def clean(self, *args, **kwargs):
+        
+        if not self.rejection_reason and self.status == self.REJECTED:
+            raise ValidationError(("Task cannot be rejected without a reason"), code='invalid')
+        
+        
+
+    def save(self, *args, **kwargs):
+        if self.status != self.__original_status:
+            if self.status == self.APPROVED:
+                #send email to owner
+                pass
+            elif self.status == self.REJECTED:
+                #send email to owner
+                #Refund users
+                refund_user(self.owner, self.slug)
+                
+
+
+                pass
+            else:
+                pass
+        super(Task, self).save(*args, **kwargs)
+        self.__original_status = self.status
+
+
     
     
 
@@ -142,9 +176,17 @@ class UserTask(models.Model):
 
 
 class TaskOrder(models.Model):
+    DEBIT = 'DEBIT'
+    REFUND = 'REFUND'
+    ORDER_CHOICES = [
+        (DEBIT, 'Debit'),
+        (REFUND, 'Refund')
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     order_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    order_type = models.CharField(max_length=100, choices=ORDER_CHOICES, default=DEBIT)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
@@ -179,3 +221,18 @@ class Transaction(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.user.username + ' - ' + self.transaction_type + ' - ' + str(self.amount)
+
+def refund_user(username, task_slug):
+    profile = User.objects.filter(username=username).first()
+    task = Task.objects.filter(slug=task_slug).first()
+    if TaskOrder.objects.filter(user=profile, task=task, order_type='REFUND').first() is None and TaskOrder.objects.filter(user=profile, task=task, order_type='DEBIT').count() == 1:
+        print('1')
+        task_order = TaskOrder.objects.create(user=profile, task=task, order_price=task.cost, order_type='REFUND')
+        print('hi')
+        if task_order:
+            profile.wallet_balance += task.cost
+            print('2')
+            profile.save()
+        

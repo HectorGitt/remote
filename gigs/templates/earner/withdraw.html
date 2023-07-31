@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Withdraw
+{% endblock  %}
+{% block content %}
+{% include 'nav.html' %}
+        <div class="flex flex-col justify-center items-center h-[100vh]">
+                 
+            <form  method="Get" action='/process_withdrawal/' >
+                <input class="mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none bg-gray-900" type="number" name="amount" placeholder="Amount" required>
+
+                <button type="submit" class="mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none bg-gray-900">Withdraw</button>
+            </form>
+            </div>
+            </div> 
+        </div>
+        
+    
+{% endblock %}

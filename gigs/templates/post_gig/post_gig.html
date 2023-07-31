@@ -1,0 +1,240 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Post Gig
+{% endblock  %}
+{% block content %}
+{% include 'nav.html' %}
+
+<section class="bg-white ">
+    <div class="py-8 px-4 mx-auto max-w-5xl">
+       {% comment %}  {% if messages %}
+        <h2 class="mb-1 text-xl font-bold text-gray-900">Error</h2>
+        {% for message in messages %}
+        <div>
+            <p class="mt-2 {{message.tag}} font-normal text-2xl text-center text-danger-900" >
+                {{message}}
+            </p>
+
+        </div>
+        {% endfor %}
+        {% endif %} {% endcomment %}
+        
+    </div>
+    
+  </section>
+
+<section class="bg-white ">
+    <div class="py-8 px-4 mx-auto max-w-5xl">
+        <h2 class="mb-4 text-xl font-bold text-gray-900">Pricings</h2>
+        <div>
+            <p class="mt-10 font-normal text-gray-800 text-2xl text-center" >Total Cost: N<span id='total_cost'></span></p>
+
+        </div>
+        
+    </div>
+
+  </section>
+
+<section class="bg-white ">
+    <div class="py-8 px-4 mx-auto max-w-5xl">
+        <h2 class="mb-4 text-xl font-bold text-gray-900">Add a new Task</h2>
+        <form action="" method="POST" enctype="multipart/form-data" >
+            {% csrf_token %}
+            <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                <div class="sm:col-span-2">
+                    <label for="id_title" class="block mb-2 text-sm font-medium text-gray-900">Task title</label>
+                    <p class="mb-2 text-sm text-danger-500">Give your task a short descriptive title e.g (follow youtube channel)</p>
+                    {{form.title}}
+                    {% if form.errors.title %}
+                        <div class="text-red-500 mb-8 text-right">
+                            {{form.errors.title}}
+                        </div>
+                    {% endif %}
+
+                </div>
+                
+                <div class="w-full">
+                    <label for="id_total_participants" class="block mb-2 text-sm font-medium text-gray-900">No of Participants</label>
+                    {{form.total_participants}}
+                    {% if form.errors.total_participants %}
+                        <div class="text-red-500 mb-8 text-right">
+                            {{form.errors.total_participants}}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="w-full">
+                    <label for="id_unit_price" class="block mb-2 text-sm font-medium text-gray-900">Price per User <span class=" text-gray-500"> 
+                        ( Min of {{sub_category.min_price}}
+                        <span id='min_price'></span>
+                        )
+                    </span></label>
+                    {{form.unit_price}}
+                    {% if form.errors.unit_price %}
+                        <div class="text-red-500 mb-8 text-right">
+                            {{form.errors.unit_price}}
+                        </div>
+                    {% endif %}
+                </div>
+                <p class="sm:col-span-2 text-sm text-danger-500">Make sure to select the correct category and sub category or your job will be rejected</p>
+                <div>
+                    <label for="id_category" class="block mb-2 text-sm font-medium text-gray-900">Category</label>
+                    {{form.category}}
+                    {% if form.errors.category %}
+                        <div class="text-red-500 mb-8 text-right">
+                            {{form.errors.category}}
+                        </div>
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="id_sub_category" class="block mb-2 text-sm font-medium text-gray-900">Sub Category</label>
+                    {{form.sub_category}}
+                    {% if form.errors.sub_category %}
+                        <div class="text-red-500 mb-8 text-right">
+                            {{form.errors.sub_category}}
+                        </div>
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="id_cost" class="block mb-2 text-sm font-medium text-gray-900">Total Cost (N)</label>
+                    {{form.cost}}
+                    {% if form.errors.cost %}
+                        <div class="text-red-500 mb-8 text-right">
+                            {{form.errors.cost}}
+                        </div>
+                    {% endif %}
+                </div> 
+                
+                <div class="sm:col-span-2">
+                    <label for="id_description" class="block mb-2 text-sm font-medium text-gray-900">Description (Steps)</label>
+                    <p class="mb-2 text-sm text-danger-500">
+                        Earners should be able to finish any task in short period of time <br/>
+                        You cannot ask Eaners to click 5 ads, click banner for 1 day, keep inviting friends for 1 week etc <br/>
+                        Make sure to give clear instructions on how to complete the task <br/>
+                        You cannot change the description after your task has been approved <br/>
+
+                    </p>
+                    {{form.description}}
+                    {% if form.errors.description %}
+                        <div class="text-red-500 mb-8 text-right">
+                            {{form.errors.description}}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="sm:col-span-2">
+                    <label for="id_tags" class="block mb-2 text-sm font-medium text-gray-900">Tags</label>
+                    <p class="mb-2 text-sm text-danger-500">Add tags to your task to make it easier for earners to find your task e.g (follow, like, twitter, social media) etc</p>
+                    {{form.tags}}
+                    {% if form.errors.tags %}
+                        <div class="text-red-500 mb-8 text-right">
+                            {{form.errors.tags}}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="sm:col-span-2">
+                    <label for="id_sample_image" class="block mb-2 text-sm font-medium text-gray-900">Sample image</label>
+                    <p class="mb-2 text-sm text-danger-500">
+                        Upload a sample image of the task you want earners to complete <br/>
+                        If  you need a screenshot then your task must pay at least 20 Naira per screenshot requested<br/>
+                        Make sure to upload a clear image <br/>
+                        You cannot change the sample image after your task has been approved <br/>
+
+                    </p>
+                    {{form.sample_image}}
+                    {% if form.errors.sample_image %}
+                        <div class="text-red-500 mb-8 text-right">
+                            {{form.errors.sample_image}}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 hover:bg-primary-800">
+                Add product
+            </button>
+        </form>
+    </div>
+  </section>
+
+{% endblock%}
+
+{% block script %}
+<script>
+    
+    const total_cost = document.getElementById('total_cost');
+    const id_unit_price = document.getElementById('id_unit_price');
+    const id_total_participants = document.getElementById('id_total_participants');
+    const id_cost = document.getElementById('id_cost');
+    function calculateTotalCost() {
+        var cost = (id_unit_price.value * id_total_participants.value);
+        cost += cost * 0.15;
+        id_cost.value = cost.toFixed(2);
+        
+        total_cost.innerHTML = id_cost.value;
+
+    }
+    id_total_participants.addEventListener('input', calculateTotalCost);
+    id_unit_price.addEventListener('input', calculateTotalCost);
+    
+    var title = document.querySelector("[name='title']");
+    var titleClass = ['bg-gray-50', 'border', 'border-gray-300', 'text-gray-900', 'text-sm', 'rounded-lg', 'focus:ring-primary-600', 'focus:border-primary-600', 'block', 'w-full', 'p-2.5']
+    const input = document.querySelectorAll('input');
+    const selectI = document.querySelector("[name='category']");
+    const selectII = document.querySelector("[name='sub_category']");
+    selectI.value=''
+    const textArea = document.querySelector("[name='description']");
+    input.forEach((input) => {
+        input.classList.add(...titleClass);
+    });
+    selectI.classList.add(...titleClass);
+    selectII.classList.add(...titleClass);
+    textArea.classList.add(...titleClass);
+    const sub_category_details = {};
+    const load_subcategories = (url) => {
+        var sub_category = document.querySelector("[name='sub_category']");
+        fetch(url)
+        .then((resp) => resp.json())
+        .then(function(data) {
+            var unit_price = document.querySelector("[name='unit_price']");
+            var min_price = document.querySelector("[id='min_price']");
+            var optionHTML = '';
+            
+            for (let i = 0; i < data.length; i++) {
+                optionHTML += '<option value="'+ data[i].id +'">'+ data[i].name +'</option>';
+                sub_category_details[data[i].id] = data[i].min_price;
+            }
+            sub_category.innerHTML = optionHTML;
+            unit_price.value = sub_category_details[sub_category.value];
+            calculateTotalCost();
+            //change min price html attribute
+            unit_price.setAttribute('min', sub_category.value);
+            min_price.innerHTML = sub_category_details[sub_category.value];
+
+
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
+    }
+
+    selectI.addEventListener('change', function() {
+        
+        var category = this.value;
+        var url = '/api/load_subcategories/'+ category +'/';
+        load_subcategories(url);
+        
+    });
+
+    selectII.addEventListener('change', function() {
+        
+        var unit_price = document.querySelector("[name='unit_price']");
+        var sub_category = this.value;
+        unit_price.value = sub_category_details[sub_category];
+        unit_price.setAttribute('min', sub_category_details[sub_category]);
+        console.log(unit_price.value)
+        calculateTotalCost();
+    });
+    
+    
+
+</script>
+{% endblock  %}

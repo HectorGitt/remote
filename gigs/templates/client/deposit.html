@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Deposit
+{% endblock  %}
+{% block content %}
+{% include 'nav.html' %}
+        <div class="flex flex-col justify-center items-center h-[100vh]">
+                 
+            <form action="" method="POST" >
+                {% csrf_token %}
+                {{form.amount}}
+
+                <button type="submit" class="mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none bg-gray-900">Deposit</button>
+            </form>
+            </div>
+            </div> 
+        </div>
+        
+    
+{% endblock %}
+

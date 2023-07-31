@@ -9,31 +9,31 @@
 
 <div class="overflow-hidden bg-white dark shadow sm:rounded-lg">
     <div class="px-4 py-5 sm:px-6">
-      <h3 class="text-base font-semibold leading-6 text-gray-900">Task Information</h3>
-      <p class="mt-1 max-w-2xl text-sm text-gray-500">Task details and application instruction.</p>
+      <h3 class="text-base font-semibold leading-6 text-gray-900">Task Action Information</h3>
+      <p class="mt-1 max-w-2xl text-sm text-gray-500">Task action details and Options.</p>
     </div>
     <div class="border-t border-gray-200">
       <dl>
         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
           <dt class="text-sm font-medium text-gray-500">Title</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{task.title}}</dd>
+          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{user_task.task.title}}</dd>
         </div>
         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">Posted by</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{task.owner}}</dd>
+          <dt class="text-sm font-medium text-gray-500">User</dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{user_task.task.user}}</dd>
         </div>
         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">Participants</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{task.registered_count}}/{{task.total_participants}}</dd>
+          <dt class="text-sm font-medium text-gray-500">Price expectation</dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">${{user_task.task.unit_price}}</dd>
         </div>
         
         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">Price expectation</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">${{task.unit_price}}</dd>
+          <dt class="text-sm font-medium text-gray-500"></dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{ user_task.date_created|timesince }} ago</dd>
         </div>
         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
           <dt class="text-sm font-medium text-gray-500">Instruction/Directions</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{task.description}}</dd>
+          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{user_task.task.description}}</dd>
         </div>
         {% if task.sample_image %}
         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -71,31 +71,19 @@
     </div>
   </div>
   <!-- Modal toggle -->
-  {% if is_owner %}
-  <div class="flex justify-evenly m-5">
-      <button id="deleteButton" data-modal-toggle="deleteModal" class="block text-white bg-secondary-700 hover:bg-secondary-800 focus:ring-4 focus:outline-none focus:ring-secondary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-secondary-600 dark:hover:bg-secondary-700 dark:focus:ring-secondary-800" type="button">
-      Pause
-      </button>
-      <button id="deleteButton" data-modal-toggle="deleteModal" class="block text-white bg-danger-700 hover:bg-danger-800 focus:ring-4 focus:outline-none focus:ring-danger-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-danger-600 dark:hover:bg-danger-700 dark:focus:ring-danger-800" type="button">
-        Terminate
-        </button>
-  </div>
-  {% else %}
-
   {% is_registered task as registered %}
   {% if registered %}
   <div class="flex justify-center m-5">
       <button id="deleteButton" type='button' data-modal-toggle="deleteModal" class="block text-white bg-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-300 dark:focus:ring-primary-800 cursor-not-allowed" type="button " disabled>
-      Applied
+      Approved
       </button>
   </div>
   {% else %}
   <div class="flex justify-center m-5">
       <button id="deleteButton" data-modal-toggle="deleteModal" class="block text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" type="button">
-      Apply
+      Approve
       </button>
   </div>
-  {% endif %}
   {% endif %}
 
 <!-- Main modal -->
@@ -114,7 +102,7 @@
                 <button data-modal-toggle="deleteModal" type="button" class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                     No, cancel
                 </button>
-                <a href='apply' class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
+                <a href='apply/' class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
                     Yes, I'm sure
                 </a>
             </div>

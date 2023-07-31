@@ -6,14 +6,14 @@
 {% block content %}
 <div>
     <div class="flex bg-gray-100 min-h-screen">
-        <nav class="w-24 hidden md:flex flex-col items-center bg-white dark:bg-gray-800 py-4">
+        {% comment %} <nav class="fixed top-0 left-0 h-full w-24 hidden md:flex flex-col items-center bg-gray-800 py-4 z-10">
             <!-- Left side NavBar -->
     
             <a href='/'>
                 <!-- App Logo -->
     
                 <svg
-                    class="h-8 w-8 fill-current text-blue-600 dark:text-blue-300"
+                    class="h-8 w-8 fill-current text-primary-300"
                     viewBox="0 0 24 24">
                     <path
                         d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3m6.82
@@ -23,10 +23,10 @@
     
             </a>
     
-            <ul class="mt-2 text-gray-700 dark:text-gray-400 capitalize">
+            <ul class="mt-2  text-gray-400 capitalize">
                 <!-- Links -->
     
-                <li class="mt-3 p-2 text-blue-600 dark:text-blue-300 rounded-lg">
+                <li class="mt-3 p-2 text-primary-300 rounded-lg">
                     <a href="#" class=" flex flex-col items-center">
                         <svg class="fill-current h-5 w-5" viewBox="0 0 24 24">
                             <path
@@ -38,29 +38,11 @@
                     </a>
     
                 </li>
-    
                 <li
-                    class="mt-3 p-2 hover:text-blue-600 dark-hover:text-blue-300
-                    rounded-lg">
-                    <a href="#" class=" flex flex-col items-center">
-                        <svg class="fill-current h-5 w-5" viewBox="0 0 24 24">
-                            <path
-                                d="M23 3v-.5a2.5 2.5 0 00-5 0V3c-.55 0-1 .45-1 1v4c0
-                                .55.45 1 1 1h5c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1m-1
-                                0h-3v-.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5V3M6
-                                11h9v2H6v-2m0-4h9v2H6V7m16 4v5c0 1.11-.89 2-2 2H6l-4
-                                4V4a2 2 0 012-2h11v2H4v13.17L5.17 16H20v-5h2z"></path>
-                        </svg>
-                        <span class="text-xs mt-2">Notifications</span>
-                    </a>
-    
-                </li>
-    
-                <li
-                    class="mt-3 p-2 hover:text-blue-600 dark-hover:text-blue-300
+                    class="mt-3 p-2 hover:text-primary-600 dark-hover:text-primary-300
                     rounded-lg">
                     <a
-                        href="#"
+                        href="/earnings/"
                         class=" flex flex-col items-center">
                         <svg class="fill-current h-5 w-5" viewBox="0 0 24 24">
                             <path
@@ -75,9 +57,9 @@
                 </li>
     
                 <li
-                    class="mt-3 p-2 hover:text-blue-600 dark-hover:text-blue-300
+                    class="mt-3 p-2 hover:text-primary-600 dark-hover:text-primary-300
                     rounded-lg">
-                    <a href="/tasks" class=" flex flex-col items-center">
+                    <a href="/tasks/" class=" flex flex-col items-center">
                         <svg class="fill-current h-5 w-5" viewBox="0 0 512 512">
                             <path
                                 d="M505 442.7L405.3
@@ -95,9 +77,9 @@
                 </li>
     
                 <li
-                    class="mt-3 p-2 hover:text-blue-600 dark-hover:text-blue-300
+                    class="mt-3 p-2 hover:text-primary-600 dark-hover:text-primary-300
                     rounded-lg">
-                    <a href="/post_job" class=" flex flex-col items-center">
+                    <a href="/post_job/" class=" flex flex-col items-center">
                         <svg class="fill-current h-5 w-5" viewBox="0 0 24 24">
                             <path
                                 d="M19 19H5V8h14m0-5h-1V1h-2v2H8V1H6v2H5a2 2 0 00-2
@@ -113,11 +95,11 @@
             </ul>
     
             <div
-                class="mt-auto flex items-center p-2 text-blue-700 bg-gray-200
-                dark:text-blue-500 rounded-full">
+                class="mt-4 flex items-center p-2  bg-gray-200
+                text-primary-500 rounded-full">
                 <!-- important action -->
     
-                <a href="#">
+                <a href="/support/">
                     <svg class="fill-current h-5 w-5" viewBox="0 0 24 24">
                         <path
                             d="M12 1c-5 0-9 4-9 9v7a3 3 0 003 3h3v-8H5v-2a7 7 0 017-7
@@ -130,14 +112,14 @@
     
             </div>
     
-        </nav>
+        </nav> {% endcomment %}
         <div class="flex-grow text-gray-800">
           {% include 'nav.html' %}
           
           <main class="p-6 sm:p-10 space-y-6">
             
             <section class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-              <div class="flex items-center p-8 bg-white shadow rounded-lg">
+              <div class="flex items-center p-4 md:p-8 bg-white shadow rounded-lg">
                 <div class="inline-flex flex-shrink-0 items-center justify-center h-8 w-8 md:h-16 md:w-16 text-purple-600 bg-purple-100 rounded-full mr-6">
                   <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -145,41 +127,41 @@
                 </div>
                 <div>
                   <span class="block text-2xl font-bold">{{task_count}}</span>
-                  <span class="block text-gray-500">Tasks</span>
+                  <span class="block text-gray-500">{% if is_client %}Posted {% else %}Applied {% endif %} Tasks</span>
                 </div>
               </div>
-              <div class="flex items-center p-8 bg-white shadow rounded-lg">
+              <div class="flex items-center p-4 md:p-8 bg-white shadow rounded-lg">
                 <div class="inline-flex flex-shrink-0 items-center justify-center h-8 w-8 md:h-16 md:w-16 text-green-600 bg-green-100 rounded-full mr-6">
                   <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                   </svg>
                 </div>
                 <div>
-                  <span class="block text-2xl font-bold">61</span>
+                  <span class="block text-2xl font-bold">{{approved_count}}</span>
                   <span class="block text-gray-500">Approved</span>
                 </div>
               </div>
-              <div class="flex items-center p-8 bg-white shadow rounded-lg">
+              <div class="flex items-center p-4 md:p-8 bg-white shadow rounded-lg">
                 <div class="inline-flex flex-shrink-0 items-center justify-center h-8 w-8 md:h-16 md:w-16 text-red-600 bg-red-100 rounded-full mr-6">
                   <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
                   </svg>
                 </div>
                 <div>
-                  <span class="inline-block text-2xl font-bold">1</span>
-                  <span class="inline-block text-xl text-gray-500 font-semibold">(10%)</span>
+                  <span class="inline-block text-2xl font-bold">{{rejected_count}}</span>
+                  <span class="inline-block text-xl text-gray-500 font-semibold">(-)</span>
                   <span class="block text-gray-500">Rejected</span>
                 </div>
               </div>
-              <div class="flex items-center p-8 bg-white shadow rounded-lg">
-                <div class="inline-flex flex-shrink-0 items-center justify-center h-8 w-8 md:h-16 md:w-16 text-blue-600 bg-blue-100 rounded-full mr-6">
+              <div class="flex items-center p-4 md:p-8 bg-white shadow rounded-lg">
+                <div class="inline-flex flex-shrink-0 items-center justify-center h-8 w-8 md:h-16 md:w-16 text-primary-600 bg-primary-100 rounded-full mr-6">
                   <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                   </svg>
                 </div>
                 <div>
-                  <span class="block text-2xl font-bold">90%</span>
-                  <span class="block text-gray-500">Finished Jobs</span>
+                  <span class="block text-2xl font-bold">{{pending_count}}</span>
+                  <span class="block text-gray-500">Pending Tasks</span>
                 </div>
               </div>
             </section>
@@ -187,7 +169,8 @@
               <div class="flex flex-col md:col-span-2 md:row-span-2 bg-white shadow rounded-lg">
                 <div class="flex items-center justify-between px-6 py-5 font-semibold border-b border-gray-100">
                   <div>Posted Jobs</div>
-                  <a href='/posted_tasks' type="button" class="inline-flex justify-center rounded-md px-1 -mr-1 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-600" id="options-menu" aria-haspopup="true" aria-expanded="true">
+
+                  <a {% if is_client %} href='/posted_tasks/' {% else %} href='/tasks'{% endif %} type="button" class="inline-flex justify-center rounded-md px-1 -mr-1 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-600" id="options-menu" aria-haspopup="true" aria-expanded="true">
                     View all
                     <svg class="-mr-1 ml-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -204,7 +187,8 @@
                           <img src="https://randomuser.me/api/portraits/women/82.jpg" alt="Annette Watson profile picture">
                         </div>
                         <span class="text-gray-600">{{task.title}}</span>
-                        <span class="ml-auto font-semibold">{{task.status}}</span>
+                        
+                        <span class="ml-auto font-semibold">{% if is_client %}{{task.status}}{% else %}{{task.owner}}{% endif %}</span>
                       </a>
                     </li>
                     {% endfor %}
@@ -215,7 +199,7 @@
                 </div>
               </div>
               <div class="flex items-center p-2 bg-white shadow rounded-lg">
-                <div class="inline-flex flex-shrink-0 items-center justify-center h-8 w-8 md:h-16 md:w-16 text-yellow-600 bg-yellow-100 rounded-full mr-6">
+                <div class="inline-flex flex-shrink-0 items-center justify-center h-8 w-8 md:h-16 md:w-16 text-warning-600 bg-warning-100 rounded-full mr-6">
                   <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
                     <path fill="#fff" d="M12 14l9-5-9-5-9 5 9 5z" />
                     <path fill="#fff" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
@@ -223,7 +207,7 @@
                   </svg>
                 </div>
                 <div>
-                  <span class="block text-xl font-bold">${{profile.earnings}}</span>
+                  <span class="block text-xl font-bold">${{profile.earnings|floatformat:'2g'}}</span>
                   <span class="block text-gray-500">Earnings</span>
                 </div>
               </div>
@@ -234,87 +218,101 @@
                   </svg>
                 </div>
                 <div>
-                  <span class="block text-xl font-bold">${{profile.wallet_balance}}</span>
+                  <span class="block text-xl font-bold">${{profile.wallet_balance|floatformat:'2g'}}</span>
                   <span class="block text-gray-500">Wallet Balance</span>
                 </div>
               </div>
               <div class="row-span-3 col-span-2 lg:col-span-2 lg:col-end-5 bg-white shadow rounded-lg">
                 <div class="flex items-center justify-between px-6 py-5 font-semibold border-b border-gray-100">
                   <span>Recent Job Applications</span>
-                  <a href='/applications' type="button" class="inline-flex justify-center rounded-md px-1 -mr-1 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-600" id="options-menu" aria-haspopup="true" aria-expanded="true">
+                  <a href='/applications/' type="button" class="inline-flex justify-center rounded-md px-1 -mr-1 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-600" id="options-menu" aria-haspopup="true" aria-expanded="true">
                     View all
                     <svg class="-mr-1 ml-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                     </svg>
-                  </button>
+                  </a>
                   <!-- Refer here for full dropdown menu code: https://tailwindui.com/components/application-ui/elements/dropdowns -->
                 </div>
-                <div class="overflow-y-auto" style="max-height: 24rem;">
-                  <ul class="p-2 lg:p-6 space-y-6">
-                    <li class="flex items-center">
-                      <div class="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
-                        <img src="https://randomuser.me/api/portraits/women/82.jpg" alt="Annette Watson profile picture">
-                      </div>
-                      <span class="text-gray-600">Annette Watson</span>
-                      <span class="ml-auto font-semibold">9.3</span>
+                <div class="overflow-y-auto h-full p-2 lg:p-6 space-y-6" style="max-height: 24rem;">
+                  {% if applications %}
+                  <ul>
+                    {% for application in applications %}
+                    <li >
+                      <a class="flex items-center p-2" href={{application.get_url}}>
+                        <div class="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                          <img src="https://randomuser.me/api/portraits/women/82.jpg" alt="Annette Watson profile picture">
+                        </div>
+                        <span class="text-gray-600">{{application.user.username}}</span>
+                        <span class="ml-auto font-semibold">{{application.task.title}}</span>
+                        <span class="ml-auto font-semibold">{{application.status}}</span>
+                      </a>
                     </li>
-                    <li class="flex items-center">
-                      <div class="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
-                        <img src="https://randomuser.me/api/portraits/men/81.jpg" alt="Calvin Steward profile picture">
-                      </div>
-                      <span class="text-gray-600">Calvin Steward</span>
-                      <span class="ml-auto font-semibold">8.9</span>
-                    </li>
-                    <li class="flex items-center">
-                      <div class="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
-                        <img src="https://randomuser.me/api/portraits/men/80.jpg" alt="Ralph Richards profile picture">
-                      </div>
-                      <span class="text-gray-600">Ralph Richards</span>
-                      <span class="ml-auto font-semibold">8.7</span>
-                    </li>
-                    <li class="flex items-center">
-                      <div class="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
-                        <img src="https://randomuser.me/api/portraits/men/79.jpg" alt="Bernard Murphy profile picture">
-                      </div>
-                      <span class="text-gray-600">Bernard Murphy</span>
-                      <span class="ml-auto font-semibold">8.2</span>
-                    </li>
-                    <li class="flex items-center">
-                      <div class="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
-                        <img src="https://randomuser.me/api/portraits/women/78.jpg" alt="Arlene Robertson profile picture">
-                      </div>
-                      <span class="text-gray-600">Arlene Robertson</span>
-                      <span class="ml-auto font-semibold">8.2</span>
-                    </li>
-                    <li class="flex items-center">
-                      <div class="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
-                        <img src="https://randomuser.me/api/portraits/women/77.jpg" alt="Jane Lane profile picture">
-                      </div>
-                      <span class="text-gray-600">Jane Lane</span>
-                      <span class="ml-auto font-semibold">8.1</span>
-                    </li>
-                    <li class="flex items-center">
-                      <div class="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
-                        <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Pat Mckinney profile picture">
-                      </div>
-                      <span class="text-gray-600">Pat Mckinney</span>
-                      <span class="ml-auto font-semibold">7.9</span>
-                    </li>
-                    <li class="flex items-center">
-                      <div class="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
-                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Norman Walters profile picture">
-                      </div>
-                      <span class="text-gray-600">Norman Walters</span>
-                      <span class="ml-auto font-semibold">7.7</span>
-                    </li>
+                    {% endfor %}
                   </ul>
+                  {% else %}
+                  <div class=" flex items-center flex-grow justify-center px-4 py-16 text-gray-400 text-3xl font-semibold bg-gray-100 border-2 border-gray-200 border-dashed rounded-md">No Recent Applications</div>
+                  {% endif %}
                 </div>
+                
               </div>
               
             </section>
-           
+            <div class='gap-4 grid md:grid-cols-2 justify-center'>
+              <div class='bg-white shadow rounded-lg'>
+                <h3 class="text-lg  my-4 font-medium text-center text-gray-900">STATS</h3>
+                {% if task_count %}
+                <canvas id="myChart" style="width:50%;max-width:700px"></canvas>
+                {% else %}
+                <div class=" flex items-center flex-grow justify-center px-4 py-16 text-gray-400 text-3xl font-semibold bg-gray-100 border-2 border-gray-200 border-dashed rounded-md">No Tasks Completed Yet</div>
+                {% endif %}
+              </div>
+              <div class='bg-white shadow rounded-lg flex text-center items-center justify-center'>
+                <fieldset>
+                  <legend class="text-sm font-semibold leading-6 text-gray-900">Account Role</legend>
+                  <p class="mt-1 text-sm leading-6 text-gray-600">Change default account role</p>
+                
+                      <a href="/switch_role/" class="mt-6 inline-flex items-center px-4 py-2 border border-transparent text-sm font-semibold rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600">
+                          Change Role
+                      </a>
+                      Current Role: ({{request.user.role}})
+              </fieldset>
+            </div>  
+            </div>
           </main>
+          
         </div>
       </div>
 </div>
+{% block scripts %}
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+<script>
+  var xValues = ["Approved", "Rejected", "Pending"];
+var yValues = [{{approved_count}}, {{rejected_count}}, {{pending_count}}];
+var barColors = [
+  "#18db87",
+  "#c41f1f",
+  "#e8d613",
+];
+
+new Chart("myChart", {
+  type: "pie",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: {%  if user.role == 'CLIENT' %} "Job Approval Rate" {% else %} 'Job Completion Rate'{% endif %},
+    }
+  }
+});
+
+</script>
+{% endblock %}
 {% endblock %}
