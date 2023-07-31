@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 from decouple import config
 
+import os
+import sys
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-sih+gdw!g&)ways_6bt3g(^q!#=rnpb_y#=7z=b&o!*es_t&*7'
+SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = ["*"]
 
@@ -87,8 +91,8 @@ NPM_BIN_PATH = r"C:/Users/USER/AppData/Roaming/nvm/v19.6.0/npm.cmd"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-DATABASES = {
+if DEBUG is True:
+    DATABASES = {
 
     'default': {
 
@@ -106,6 +110,13 @@ DATABASES = {
     }
 
 }
+elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+    if os.getenv("DATABASE_URL", None) is None:
+        raise Exception("DATABASE_URL environment variable not defined")
+    DATABASES = {
+        "default": dj_database_url.parse(config("DATABASE_URL")),
+}
+
 
 
 # Password validation
@@ -203,6 +214,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     'theme/static/',
 ]
