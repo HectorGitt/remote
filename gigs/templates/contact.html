@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Post Gig
+{% endblock  %}
+{% block content %}
+{% include 'nav.html' %}
+<section class="bg-white">
+    <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
+        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center">Contact Us</h2>
+        <p class="mb-8 lg:mb-16 font-light text-center text-gray-500  sm:text-xl">Got a technical issue? Want to send feedback about a beta feature? Need details about our Business plan? Let us know.</p>
+        <form method='POST' class="space-y-8">
+            {% csrf_token %}
+            {% for field in form %}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <div class="text-red-500">{{error}}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            <div>
+                <label for="id_name" class="block mb-2 text-sm font-medium text-gray-900 ">Your name</label>
+                {{form.name}}
+            </div>
+            <div>
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 ">Your email</label>
+                {{form.email}}
+            </div>
+            <div>
+                <label for="subject" class="block mb-2 text-sm font-medium text-gray-900 ">Subject</label>
+                {{form.subject}}
+            </div>
+            <div class="sm:col-span-2">
+                <label for="message" class="block mb-2 text-sm font-medium text-gray-900 ">Your message</label>
+                {{form.message}}
+            </div>
+            <button type="submit" class="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300">Send message</button>
+        </form>
+    </div>
+  </section>
+        
+{% block scripts %}
+<script>
+const input = document.querySelectorAll('input');
+const textarea = document.querySelector('textarea');
+input.forEach((input) => {
+  input.classList.add('border', 'border-gray-300', 'rounded-lg', 'px-4', 'py-2', 'mt-2', 'focus:outline-none', 'focus:ring-2', 'focus:ring-primary-500', 'focus:border-transparent', 'w-full');
+});
+
+textarea.classList.add('border', 'border-gray-300', 'rounded-lg', 'px-4', 'py-2', 'mt-2', 'focus:outline-none', 'focus:ring-2', 'focus:ring-primary-500', 'focus:border-transparent', 'w-full');
+
+</script>
+
+
+
+{% endblock %}    
+{% endblock %}
+
