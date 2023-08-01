@@ -64,7 +64,7 @@ def dashboard(request):
 class TaskListView(ListView):
     model = Task
     template_name = 'jobs.html'
-    queryset = Task.objects.filter(status='APPROVED').order_by('-id')
+    queryset = Task.objects.filter(status='APPROVED', state='IN_PROGRESS').order_by('-id')
     context_object_name = 'tasks'
     paginate_by = 5
 
