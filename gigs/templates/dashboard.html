@@ -115,11 +115,10 @@
         </nav> {% endcomment %}
         <div class="flex-grow text-gray-800">
           {% include 'nav.html' %}
-          
-          <main class="p-6 sm:p-10 space-y-6">
+          <main class="p-6 sm:p-4 space-y-6">
             
             <section class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-              <div class="flex items-center p-4 md:p-8 bg-white shadow rounded-lg">
+              <div class="flex items-center p-2 md:p-8 bg-white shadow rounded-lg">
                 <div class="inline-flex flex-shrink-0 items-center justify-center h-8 w-8 md:h-16 md:w-16 text-purple-600 bg-purple-100 rounded-full mr-6">
                   <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -167,19 +166,31 @@
             </section>
             <section class="md:grid flex flex-col grid-cols-2 md:grid-cols-2 lg:grid-cols-4 md:grid-rows-3 lg:grid-flow-col gap-6">
               <div class="flex flex-col md:col-span-2 md:row-span-2 bg-white shadow rounded-lg">
-                <div class="flex items-center justify-between px-6 py-5 font-semibold border-b border-gray-100">
-                  <div>Posted Jobs</div>
+                <div class="flex items-center justify-between px-3 py-3 font-semibold border-b border-gray-100">
+                  
 
-                  <a {% if is_client %} href='/posted_tasks/' {% else %} href='/tasks'{% endif %} type="button" class="inline-flex justify-center rounded-md px-1 -mr-1 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-600" id="options-menu" aria-haspopup="true" aria-expanded="true">
+                   
+                  {% if is_client %}
+                  <div>My Posted Jobs</div>
+                  <a href='/posted_tasks/' type="button" class="inline-flex justify-center rounded-md px-1 -mr-1 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-600" id="options-menu" aria-haspopup="true" aria-expanded="true">
                     View all
                     <svg class="-mr-1 ml-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                     </svg>
                   </a>
+                  {% else %}
+                  <div>Posted Jobs</div>
+                  <a href='/tasks' type="button" class="inline-flex justify-center rounded-md px-1 -mr-1 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-600" id="options-menu" aria-haspopup="true" aria-expanded="true">
+                    View all
+                    <svg class="-mr-1 ml-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                  </a>
+                  {% endif %} 
                 </div>
-                <div class="p-4 flex-grow overflow-y-scroll" style="max-height: 12rem;">
+                <div class="p-2 flex-grow overflow-y-scroll" style="max-height: 12rem;">
                   {% if posted_tasks %}
-                  <ul class="p-2 lg:py-6 lg:px-4 space-y-6 overflow-hidden">
+                  <ul class="p-2 lg:py-4 lg:px-4 space-y-6 overflow-hidden">
                     {% for task in posted_tasks %}
                     <li class='border-b-2 py-1'>
                       <a class="flex items-center" href={{task.get_url}}>
