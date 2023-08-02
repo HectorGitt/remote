@@ -475,7 +475,7 @@ class ProcessWithdrawalView(CreateView):
 class TransferEarningsView(FormView):
     template_name = 'earner/transfer_earnings.html'
     form_class = TransactionForm
-    success_url = reverse_lazy('earnings')
+    success_url = reverse_lazy('wallet')
     def form_valid(self, form):
         user = User.objects.filter(username=self.request.user.username).first()
         amount = form.cleaned_data['amount']
