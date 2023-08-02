@@ -64,7 +64,7 @@ def dashboard(request):
 class TaskListView(ListView):
     model = Task
     template_name = 'jobs.html'
-    queryset = Task.objects.filter(status='APPROVED', state='IN_PROGRESS').order_by('-id')
+    queryset = Task.active.order_by('-id')
     context_object_name = 'tasks'
     paginate_by = 5
 
@@ -84,7 +84,7 @@ class TaskByCategoryListView(ListView):
     
     def get_queryset(self):
         category_id = self.kwargs['id']
-        return Task.objects.filter(sub_category__category__id=category_id, status='APPROVED').order_by('-id')
+        return Task.active.filter(sub_category__category__id=category_id).order_by('-id')
     
     def get_context_data(self):
         context = super().get_context_data()
