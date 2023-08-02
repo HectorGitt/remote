@@ -55,6 +55,10 @@ class SubCategory(models.Model):
     def __str__(self):
         return self.name + " - " + self.category.name
 
+class ActiveManager(models.Manager):
+    def get_queryset(self):
+        return super(ActiveManager, self).get_queryset().filter(status=self.model.APPROVED, state=self.model.IN_PROGRESS)
+
 class Task(models.Model):
     PENDING = 'PENDING'
     APPROVED = 'APPROVED'
@@ -91,12 +95,14 @@ class Task(models.Model):
     state = models.CharField(max_length=100, choices=STATE_CHOICES, default=IN_PROGRESS)
     date_created = models.DateTimeField(auto_now_add=True, editable=False)
     rejection_reason = models.TextField(null=True, blank=True)
+    active = ActiveManager()
+    objects = models.Manager()
 
     def __str__(self):
         return self.title
     
     def registered_count(self):
-        return UserTask.objects.filter(task=self).count()
+        return UserTask.objects.filter(task=self, status__in=('APPROVED', 'PENDING') ).count()
     
     def is_registered(self, user):
         return UserTask.objects.filter(task=self, user=user).exists()
