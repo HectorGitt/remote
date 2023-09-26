@@ -192,6 +192,7 @@ class TaskOrder(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    no_of_participants = models.PositiveIntegerField(default=1)
     order_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     order_type = models.CharField(max_length=100, choices=ORDER_CHOICES, default=DEBIT)
     date_created = models.DateTimeField(auto_now_add=True)
@@ -248,12 +249,9 @@ def refund_user(username, task_slug):
     profile = User.objects.filter(username=username).first()
     task = Task.objects.filter(slug=task_slug).first()
     if TaskOrder.objects.filter(user=profile, task=task, order_type='REFUND').first() is None and TaskOrder.objects.filter(user=profile, task=task, order_type='DEBIT').count() == 1:
-        print('1')
         task_order = TaskOrder.objects.create(user=profile, task=task, order_price=task.cost, order_type='REFUND')
-        print('hi')
         if task_order:
             profile.wallet_balance += task.cost
-            print('2')
             profile.save()
      
 def refund_user(self):
