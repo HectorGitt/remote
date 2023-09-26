@@ -230,6 +230,19 @@ class Transaction(models.Model):
 
     def __str__(self):
         return self.user.username + ' - ' + self.transaction_type + ' - ' + str(self.amount)
+    def approve(self):
+        self.status = self.APPROVED
+        self.save()
+        if self.transaction_type == self.DEPOSIT:
+            self.user.wallet_balance += self.amount
+            self.user.save()
+        else:
+            self.user.wallet_balance -= self.amount
+            self.user.save()
+    def reject(self):
+        self.status = self.DENIED
+        self.save()
+        
 
 def refund_user(username, task_slug):
     profile = User.objects.filter(username=username).first()
