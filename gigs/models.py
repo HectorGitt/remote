@@ -211,12 +211,12 @@ class Transaction(models.Model):
 
     PENDING = 'PENDING'
     APPROVED = 'APPROVED'
-    DENIED = 'DENIED'
+    REJECTED = 'REJECTED'
 
     STATUS_CHOICES = [
         (PENDING, 'Pending'),
         (APPROVED, 'Approved'),
-        (DENIED, 'Denied')
+        (REJECTED, 'Rejected')
     ]
     TRANSACTION_CHOICES = [
         (DEPOSIT, 'Deposit'),
@@ -241,7 +241,7 @@ class Transaction(models.Model):
             self.user.wallet_balance -= self.amount
             self.user.save()
     def reject(self):
-        self.status = self.DENIED
+        self.status = self.REJECTED
         self.save()
         
 
