@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import User, Category, Task, UserTask, SubCategory, Transaction
-
+from .methods import methods
 # Register your models here.
 
 
@@ -23,8 +23,8 @@ class UserTaskAdmin(admin.ModelAdmin):
     list_filter = ['task', 'status', 'user']
 
 @admin.register(Transaction)
-class TransactionAdmin(admin.ModelAdmin):
-    list_display = ['user', 'amount', 'transaction_type', 'status']
+class TransactionAdmin(admin.ModelAdmin, methods):
+    list_display = ['user', 'amount', 'transaction_type', 'approve','reject']
     list_filter = ['transaction_type', 'status']
 
 @admin.register(SubCategory)
