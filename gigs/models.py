@@ -83,6 +83,7 @@ class Task(models.Model):
     slug = AutoSlugField(populate_from='title', unique=True)
     title = models.CharField(max_length=100)
     description = models.TextField()
+    required_proof = models.TextField(null=True, blank=False)
     unit_price = models.PositiveIntegerField(default=1)
     total_participants = models.PositiveIntegerField(default=1)
     cost = models.PositiveIntegerField(default=0)
