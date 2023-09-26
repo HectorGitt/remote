@@ -16,7 +16,7 @@ class TaskForm(forms.ModelForm):
     category = forms.ModelChoiceField(queryset=Category.objects.all(), empty_label="Select Category", )
     class Meta:
         model = Task
-        fields = ['title', 'description', 'unit_price', 'total_participants','cost', 'sub_category', 'tags', 'sample_image']
+        fields = ['title', 'description', 'unit_price', 'total_participants','cost', 'sub_category', 'tags', 'sample_image','required_proof']
         widgets = {
         'unit_price':forms.NumberInput(attrs={'max':99999, 'min':1}),
         'total_participants':forms.NumberInput(attrs={'max':999999999, 'min':1}),
