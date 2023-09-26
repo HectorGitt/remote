@@ -255,4 +255,12 @@ def refund_user(username, task_slug):
             profile.wallet_balance += task.cost
             print('2')
             profile.save()
-        
+     
+def refund_user(self):
+        profile = User.objects.filter(username=self.username).first()
+        task = Task.objects.filter(slug=self.task_slug).first()
+        if TaskOrder.objects.filter(user=profile, task=task, order_type='REFUND').first() is None and TaskOrder.objects.filter(user=profile, task=task, order_type='DEBIT').count() == 1:
+            task_order = TaskOrder.objects.create(user=profile, task=task, order_price=task.cost, order_type='REFUND')
+            if task_order:
+                profile.wallet_balance += task.cost
+                profile.save()
