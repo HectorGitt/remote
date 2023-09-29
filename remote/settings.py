@@ -99,7 +99,6 @@ NPM_BIN_PATH = r"C:/Users/USER/AppData/Roaming/nvm/v19.6.0/npm.cmd"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 if DEBUG is True:
-    NPM_BIN_PATH = '/usr/local/bin/npm'
     DATABASES = {
 
     'default': {
@@ -119,6 +118,7 @@ if DEBUG is True:
 
 }
 elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+    NPM_BIN_PATH = '/usr/local/bin/npm'
     if os.getenv("DATABASE_URL", None) is None:
         raise Exception("DATABASE_URL environment variable not defined")
     DATABASES = {
