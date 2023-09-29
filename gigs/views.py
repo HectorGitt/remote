@@ -478,10 +478,11 @@ def verify_payment_transaction(request, reference):
             return JsonResponse({'status': 'failed'})
     else:
         return JsonResponse({'status': 'failed'})
-@login_required 
+@login_required
 def withdraw(request):
     return render(request, 'earner/withdraw.html')
 
+@method_decorator(login_required, name="dispatch")
 class WithdrawalListView(ListView):
     model = Transaction
     paginate_by = 20
@@ -491,7 +492,8 @@ class WithdrawalListView(ListView):
     def get_queryset(self) -> QuerySet[Any]:
         profile = User.objects.filter(username=self.request.user.username).first()
         return Transaction.objects.filter(transaction_type='WITHDRAWAL', user=profile).order_by('-id')
-    
+
+@method_decorator(login_required, name="dispatch")    
 class DepositListView(ListView):
     model = Transaction
     paginate_by = 20
@@ -502,7 +504,7 @@ class DepositListView(ListView):
         profile = User.objects.filter(username=self.request.user.username).first()
         return Transaction.objects.filter(transaction_type='DEPOSIT', user=profile).order_by('-id')
     
-
+@method_decorator(login_required, name="dispatch")
 class ProcessWithdrawalView(CreateView):
     model = Transaction
     template_name = 'earner/process_withdrawal.html'
@@ -534,7 +536,8 @@ class ProcessWithdrawalView(CreateView):
         send_mail('RemoteGig Withdrawal Request', '', message, [settings.EMAIL_HOST_USER, 'abdulazeezolamidae@gmail.com'])
         messages.success(self.request, 'Withdrawal Successful, Wait for Processing')
         return super().form_valid(form)
-        
+
+@method_decorator(login_required, name="dispatch")        
 class TransferEarningsView(FormView):
     template_name = 'earner/transfer_earnings.html'
     form_class = TransactionForm
@@ -550,6 +553,8 @@ class TransferEarningsView(FormView):
         user.save()
         messages.success(self.request, 'Transfer Successful')
         return super().form_valid(form)
+    
+@method_decorator(login_required, name="dispatch")    
 class TransactionListView(ListView):
     model = Transaction
     paginate_by = 40
@@ -559,7 +564,8 @@ class TransactionListView(ListView):
     def get_queryset(self) -> QuerySet[Any]:
         profile = User.objects.filter(username=self.request.user.username).first()
         return Transaction.objects.filter(user=profile).order_by('-id')
-    
+
+@method_decorator(login_required, name="dispatch")    
 class ReceiptListView(ListView):
     model = Transaction
     paginate_by = 40
@@ -570,6 +576,7 @@ class ReceiptListView(ListView):
         profile = User.objects.filter(username=self.request.user.username).first()
         return UserReceipt.objects.filter(user=profile).order_by('-id')
 
+@method_decorator(login_required, name="dispatch")
 class BankDetailsView(CreateView):
     model = BankAccount
     template_name = 'earner/bank_details.html'
@@ -587,7 +594,8 @@ class BankDetailsView(CreateView):
         context = super().get_context_data(**kwargs)
         context["bank_account"] = BankAccount.objects.filter(user=self.request.user).first()
         return context
-    
+
+@method_decorator(login_required, name="dispatch")    
 class ContactView(FormView):
     template_name = 'contact.html'
     form_class = ContactForm
@@ -606,6 +614,8 @@ class ContactView(FormView):
         )
         messages.success(self.request, 'Message Sent')
         return super().form_valid(form)
+    
+@login_required
 def toggle_role(request):
     user = User.objects.filter(username=request.user.username).first()
     if user.role == User.Client:
