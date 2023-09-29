@@ -466,7 +466,6 @@ def verify_payment_transaction(request, reference):
     request = requests.get('https://api.paystack.co/transaction/verify/'+str(reference), headers={'Authorization': 'Bearer '+str(settings.PAYSTACK_SECRET_KEY)})
     if request.status_code == 200:
         data = request.json()['data']
-        print(data)
         if data['status'] == 'success' and transaction.status == 'PENDING':
             transaction.status = 'APPROVED'
             transaction.save()
