@@ -7,7 +7,6 @@ pip install -r requirements.txt
 
 # collect static files
 python manage.py collectstatic --no-input
-which npm
 
 # build tailwind
 npm install -D tailwindcss
