@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from .forms import UserForm, TaskForm, UserTaskForm,TransactionForm, ContactForm
+from .forms import UserForm, TaskForm, UserTaskForm,TransactionForm, ContactForm, AddParticipantsForm
 from django.contrib.auth.decorators import login_required
 from .models import User, Category,SubCategory, Task, UserTask, UserReceipt, TaskOrder, Transaction, BankAccount
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, TemplateView, FormView
@@ -272,6 +272,49 @@ def resume_task(request, slug):
     else:
         print('403 Error')
         return redirect('home')
+
+@method_decorator(login_required, name="dispatch")    
+class AddParticipants(FormView):
+    form_class = AddParticipantsForm
+    template_name = 'client/add_participants.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['task'] = Task.objects.filter(slug=self.kwargs['slug']).first()
+        return context
+    def form_valid(self, form):
+        owner = User.objects.filter(username=self.request.user.username).first()
+        no_participants = form.cleaned_data['no_of_participants']
+        
+        slug = self.kwargs['slug']
+        task = Task.objects.filter(slug=slug).first()
+        cost = task.unit_price * no_participants
+        order_price = cost + Decimal(cost * 0.15)
+        if owner.wallet_balance < order_price:
+            messages.error(self.request, f'Wallet balance is low')
+            return redirect('task', slug=slug)
+        owner.wallet_balance -= order_price
+        task_order = TaskOrder.objects.create(task=task, user=owner, order_price=order_price, no_of_participants=no_participants)
+        task.total_participants += no_participants
+        task.cost += order_price
+        task_order.save()
+        owner.save()
+        task.save()
+        messages.success(self.request, f'{no_participants} Participants Added Successfully')
+        return super().form_valid(form)
+    def get_success_url(self):
+        return reverse_lazy('task', kwargs={'slug': self.kwargs['slug']})
+    
+@method_decorator(login_required, name="dispatch")
+class getPrice(View):
+    def get(self, request, *args, **kwargs):
+        no_participants = request.GET.get('no_participants')
+        slug = self.kwargs['slug']
+        task = Task.objects.filter(slug=slug).first()
+        price = task.unit_price * int(no_participants)
+        cost = price + Decimal(price * 0.15)
+        return JsonResponse({'status': 'success', 'cost': cost})
+
 
 class WalletView(TemplateView):
     template_name = 'earner/wallet.html'
