@@ -20,7 +20,7 @@
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
               Transaction Id
             </label>
-            <input class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" disabled type="text" placeholder="Doe" value='{{transaction.id}}'>
+            <input class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" disabled type="text" placeholder="Doe" value='{{transaction.reference}}'>
           </div>
         </div>
         <div class="flex flex-wrap -mx-3 mb-6">
@@ -59,13 +59,14 @@ function payWithPaystack(e) {
   e.preventDefault();
 
   let handler = PaystackPop.setup({
-    key: 'pk_test_f4f00025c0ffc3db528b7b8ad4d3545e8e325d3c', // Replace with your public key
+    //key: 'pk_test_f4f00025c0ffc3db528b7b8ad4d3545e8e325d3c', // Replace with your public key
+    key: 'pk_live_ef7c723bc728000fd5f8a3e8340669baf15e120e',
     email: document.getElementById("email-address").value,
     amount: document.getElementById("amount").value * 100,
-    ref: {{transaction.id}}, // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+    ref: `{{transaction.reference}}`, // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
     // label: "Optional string that replaces customer email"
     onClose: function(){
-      alert('Window closed.');
+      alert('Transaction was not completed');
     },
     callback: function(response){
       //verify transaction from server
@@ -73,7 +74,6 @@ function payWithPaystack(e) {
       fetch(url)
       .then((resp) => resp.json())
       .then(function(data) {
-        console.log(data)
         if(data.status == 'success'){
           window.location.href = '/dashboard/'
         }else {

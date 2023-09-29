@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block head %}
+{{ form.media }}
+{% endblock %}
+
 {% block title %}
     Post Gig
 {% endblock  %}
@@ -7,28 +12,10 @@
 {% include 'nav.html' %}
 
 <section class="bg-white ">
-    <div class="py-8 px-4 mx-auto max-w-5xl">
-       {% comment %}  {% if messages %}
-        <h2 class="mb-1 text-xl font-bold text-gray-900">Error</h2>
-        {% for message in messages %}
+    <div class="px-4 mx-auto max-w-5xl">
+        <h2 class="py-8 mb-4 text-xl font-bold text-gray-900">Pricings</h2>
         <div>
-            <p class="mt-2 {{message.tag}} font-normal text-2xl text-center text-danger-900" >
-                {{message}}
-            </p>
-
-        </div>
-        {% endfor %}
-        {% endif %} {% endcomment %}
-        
-    </div>
-    
-  </section>
-
-<section class="bg-white ">
-    <div class="py-8 px-4 mx-auto max-w-5xl">
-        <h2 class="mb-4 text-xl font-bold text-gray-900">Pricings</h2>
-        <div>
-            <p class="mt-10 font-normal text-gray-800 text-2xl text-center" >Total Cost: N<span id='total_cost'></span></p>
+            <p class="mt-5 font-normal text-gray-800 text-2xl text-center" >Total Cost: N<span id='total_cost'>--</span></p>
 
         </div>
         
@@ -44,7 +31,7 @@
             <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                 <div class="sm:col-span-2">
                     <label for="id_title" class="block mb-2 text-sm font-medium text-gray-900">Task title</label>
-                    <p class="mb-2 text-sm text-danger-500">Give your task a short descriptive title e.g (follow youtube channel)</p>
+                    <p class="mb-2 text-sm text-success-500">Give your task a short descriptive title e.g (follow youtube channel)</p>
                     {{form.title}}
                     {% if form.errors.title %}
                         <div class="text-red-500 mb-8 text-right">
@@ -76,7 +63,7 @@
                         </div>
                     {% endif %}
                 </div>
-                <p class="sm:col-span-2 text-sm text-danger-500">Make sure to select the correct category and sub category or your job will be rejected</p>
+                <p class="sm:col-span-2 text-sm text-success-500">Make sure to select the correct category and sub category or your job will be rejected</p>
                 <div>
                     <label for="id_category" class="block mb-2 text-sm font-medium text-gray-900">Category</label>
                     {{form.category}}
@@ -107,7 +94,7 @@
                 
                 <div class="sm:col-span-2">
                     <label for="id_description" class="block mb-2 text-sm font-medium text-gray-900">Description (Steps)</label>
-                    <p class="mb-2 text-sm text-danger-500">
+                    <p class="mb-2 text-sm text-success-500">
                         Earners should be able to finish any task in short period of time <br/>
                         You cannot ask Eaners to click 5 ads, click banner for 1 day, keep inviting friends for 1 week etc <br/>
                         Make sure to give clear instructions on how to complete the task <br/>
@@ -122,8 +109,22 @@
                     {% endif %}
                 </div>
                 <div class="sm:col-span-2">
+                    <label for="id_required_proof" class="block mb-2 text-sm font-medium text-gray-900">Required Proof</label>
+                    <p class="mb-2 text-sm text-success-500">
+                        You can ask for the maximum of 3 items for proof<br/>
+                        If you need a screenshot, then your task must pay at least &#8358;20 per task and per screenshot: <br/>
+                        3 screenshot means price must be greater or equals to &#8358;60 <br/>
+                    </p>
+                    {{form.required_proof}}
+                    {% if form.errors.required_form %}
+                        <div class="text-red-500 mb-8 text-right">
+                            {{form.errors.required_form}}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="sm:col-span-2">
                     <label for="id_tags" class="block mb-2 text-sm font-medium text-gray-900">Tags</label>
-                    <p class="mb-2 text-sm text-danger-500">Add tags to your task to make it easier for earners to find your task e.g (follow, like, twitter, social media) etc</p>
+                    <p class="mb-2 text-sm text-success-500">Add tags to your task to make it easier for earners to find your task e.g (follow, like, twitter, social media) etc</p>
                     {{form.tags}}
                     {% if form.errors.tags %}
                         <div class="text-red-500 mb-8 text-right">
@@ -133,7 +134,7 @@
                 </div>
                 <div class="sm:col-span-2">
                     <label for="id_sample_image" class="block mb-2 text-sm font-medium text-gray-900">Sample image</label>
-                    <p class="mb-2 text-sm text-danger-500">
+                    <p class="mb-2 text-sm text-success-500">
                         Upload a sample image of the task you want earners to complete <br/>
                         If  you need a screenshot then your task must pay at least 20 Naira per screenshot requested<br/>
                         Make sure to upload a clear image <br/>
@@ -182,12 +183,14 @@
     const selectII = document.querySelector("[name='sub_category']");
     selectI.value=''
     const textArea = document.querySelector("[name='description']");
+    const textArea2 = document.querySelector("[name='required_proof']");
     input.forEach((input) => {
         input.classList.add(...titleClass);
     });
     selectI.classList.add(...titleClass);
     selectII.classList.add(...titleClass);
     textArea.classList.add(...titleClass);
+    textArea2.classList.add(...titleClass);
     const sub_category_details = {};
     const load_subcategories = (url) => {
         var sub_category = document.querySelector("[name='sub_category']");

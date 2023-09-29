@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load is_registered %}
+{% block title %}
+    Add Participants | {{ task.title }}
+{% endblock  %}
+{% block content %}
+{% include 'nav.html' %}
+<div class="flex flex-col items-center justify-center h-screen">
+    <h1 class='text-xl'>Add Participants</h1>
+    <form class="w-full max-w-sm flex-col items-center border-2 p-4" method='POST'>
+        {% csrf_token %}
+        <div class="max-w-md flex items-center border-b border-primary-500 py-2 gap-3">
+            {{form.no_of_participants}}
+        <button class="flex-shrink-0 border-transparent border-4 text-primary-500 hover:text-primary-800 text-sm py-1 px-2 rounded" type="button">
+            Cancel
+        </button>
+        </div>
+        {% if form.errors.no_of_participants %}
+            <div class="text-red-500 mb-8 text-right">
+                {{form.errors.no_of_participants}}
+            </div>
+        {% endif %}
+        <div class='flex mt-4 justify-between items-center'>
+            <div class="text-green-500 cost">
+            </div>
+            <button class="bg-primary-500 disabled:bg-secondary-300 hover:bg-primary-700 border-primary-500 hover:border-primary-700 text-sm  text-white py-1 px-2 rounded" type="submit">
+                Add Participants
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    const input = document.querySelector('input[name="no_of_participants"]');
+    if (input.value) {
+        input.disabled = false;
+    }
+    const inputClass = ['bg-gray-50', 'border', 'border-gray-300', 'text-gray-900', 'text-sm', 'rounded-lg', 'focus:ring-primary-600', 'focus:border-primary-600', 'block', 'w-full', 'p-2.5']
+    const submit_button = document.querySelector('button[type="submit"]');
+    input.classList.add(...inputClass);
+    const form = document.querySelector('form');
+    const button = document.querySelector('button.fetch');
+    const cost = document.querySelector('.cost');
+    price = document.querySelector('.price');
+    input.addEventListener('input', (e) => {
+        if (e.target.value) {
+            var value = `${e.target.value * {{task.unit_price}} * 1.15}`;
+            value = Number(value).toFixed(2);
+            cost.innerHTML = `Total Cost: ${value}`;
+            submit_button.disabled = false;
+
+        } else {
+            submit_button.disabled = true;
+        }
+    })
+</script>
+
+{% endblock %}

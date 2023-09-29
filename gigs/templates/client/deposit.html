@@ -13,10 +13,20 @@
 
                 <button type="submit" class="mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none bg-gray-900">Deposit</button>
             </form>
-            </div>
-            </div> 
         </div>
-        
+
     
+{% endblock %}
+
+{% block script %}
+<script>
+    const input = document.querySelector('input[name="amount"]');
+    if (input.value) {
+        input.disabled = false;
+    }
+    const inputClass = ['bg-gray-50', 'border', 'border-gray-300', 'text-gray-900', 'text-sm', 'rounded-lg', 'focus:ring-primary-600', 'focus:border-primary-600', 'block', 'w-full', 'p-2.5']
+    const submit_button = document.querySelector('button[type="submit"]');
+    input.classList.add(...inputClass);
+</script>
 {% endblock %}
 

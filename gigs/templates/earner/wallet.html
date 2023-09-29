@@ -59,7 +59,10 @@
             <a href='/transfer_earnings/' class="bg-slate-500  text-white font-bold py-2 px-4 rounded">Transfer Earnings</a>
             <a href='/deposit/' class="bg-secondary-700 text-white font-bold py-2 px-4 rounded">Deposit</a>
           </div>
-          <h2 class="block text-xl mt-10">Receipts: </h2>
+          <div class='flex justify-between mt-10 border-t-2'>
+            <h2 class="block text-xl">Receipt: </h2>
+            <a href='/receipts/' class="bg-secondary-600 text-white font-bold py-2 px-4 rounded" >View All</a>
+        </div>
           {% if receipts %}
           <span class='text-xs'>Showing ({{receipts.count}}) of {{receipt_count}} </span>
           <div class="relative overflow-hidden bg-white shadow-md sm:rounded-lg">
@@ -114,11 +117,13 @@
           </div>
         {% else %}
         <div class="flex justify-center items-center h-10">
-            <p class="text-gray-500 text-2xl">No Receipts Yet</p>
+            <p class="text-gray-500 text-xl">No Receipts Yet</p>
         </div>
         {% endif %}
-
-        <h2 class="block text-xl mt-10 ">Deposit: </h2>
+        <div class='flex justify-between mt-10 border-t-2'>
+        <h2 class="block text-xl">Deposit: </h2>
+        <a href='/deposits/' class="bg-secondary-600 text-white font-bold py-2 px-4 rounded" >View All</a>
+        </div>
         {% if deposits %}
           <span class='text-xs'>Showing ({{deposits.count}}) of {{deposit_count}} </span>
         <div class="relative overflow-hidden bg-white shadow-md sm:rounded-lg">
@@ -173,7 +178,10 @@
           
 
 
-          <h2 class="block text-xl mt-10 ">Withdrawal: </h2>
+          <div class='flex justify-between mt-10 border-t-2'>
+            <h2 class="block text-xl">Withdrawal: </h2>
+            <a href='/withdrawals/' class="bg-secondary-600 text-white font-bold py-2 px-4 rounded" >View All</a>
+        </div>
             {% if withdrawals %}
           <span class='text-xs'>Showing ({{withdrawals.count}}) of {{withdrawal_count}} </span>
         <div class="relative overflow-hidden bg-white shadow-md sm:rounded-lg">
