@@ -60,7 +60,7 @@ def dashboard(request):
             }
     return render(request, 'dashboard.html', context)
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
 class TaskListView(ListView):
     model = Task
     template_name = 'jobs.html'
@@ -159,6 +159,7 @@ def task_details(request, slug):
     form = UserTaskForm()
     return render(request, 'client/task_details.html', {'task': task, 'is_owner': is_owner, 'form': form})
 
+@method_decorator(login_required, name="dispatch")
 def apply(request, slug):
     task = Task.objects.filter(slug=slug).first()
     user = User.objects.filter(username=request.user.username).first()
@@ -204,6 +205,7 @@ class PostedTaskListView(ListView):
         profile = User.objects.filter(username=self.request.user.username).first()
         return Task.objects.filter(owner=profile).order_by('-date_created')
 
+@login_required
 def end_task(request, slug):
     task = Task.objects.filter(slug=slug).first()
     user = User.objects.filter(username=request.user.username).first()
@@ -227,6 +229,7 @@ def end_task(request, slug):
         print('403 Error')
         return redirect('home')
 
+@login_required
 def pause_task(request, slug):
     task = Task.objects.filter(slug=slug).first()
     user = User.objects.filter(username=request.user.username).first()
@@ -250,6 +253,7 @@ def pause_task(request, slug):
         print('403 Error')
         return redirect('home')
 
+@login_required
 def resume_task(request, slug):
     task = Task.objects.filter(slug=slug).first()
     user = User.objects.filter(username=request.user.username).first()
@@ -316,6 +320,7 @@ class getPrice(View):
         return JsonResponse({'status': 'success', 'cost': cost})
 
 
+@method_decorator(login_required, name="dispatch")
 class WalletView(TemplateView):
     template_name = 'earner/wallet.html'
     context_object_name = 'receipts'
@@ -338,6 +343,7 @@ class WalletView(TemplateView):
         context['receipt_count'] = receipt_count
         return context
     
+@method_decorator(login_required, name="dispatch")    
 class ClientApplication(DetailView):
     model = UserTask
     template_name = 'client/application_details.html'
@@ -352,6 +358,7 @@ class ClientApplication(DetailView):
         else:
             return redirect('home')
 
+@login_required
 def approve_app(request, id):
     user_task = UserTask.objects.filter(id=id).first()
     user = user_task.user
@@ -370,6 +377,7 @@ def approve_app(request, id):
     else:
         return redirect('dashboard')
 
+@login_required
 def reject_app(request, id):
     user_task = UserTask.objects.filter(id=id).first()
     if user_task.task.owner != request.user:
@@ -384,6 +392,7 @@ def reject_app(request, id):
     else:
         return redirect('dashboard')
 
+@method_decorator(login_required, name="dispatch")
 class ApplicationListView(ListView):
     template_name = 'client/list_applications.html'
     context_object_name = 'applications'
@@ -394,6 +403,8 @@ class ApplicationListView(ListView):
         if profile.role == 'CLIENT':
             return UserTask.objects.filter(task__owner=profile).order_by('-date_created')
         return UserTask.objects.filter(user=profile).order_by('-date_created')
+    
+@method_decorator(login_required, name="dispatch")
 class TaskApplicationListView(ListView):
     template_name = 'client/task_applications.html'
     context_object_name = 'applications'
@@ -404,6 +415,7 @@ class TaskApplicationListView(ListView):
         task = Task.objects.filter(slug=self.kwargs['slug']).first()
         return UserTask.objects.filter(task__owner=profile, task=task).order_by('-date_created')
     
+@login_required   
 def approve_all_apps(request, slug):
     task = Task.objects.filter(slug=slug).first()
     if task.owner != request.user:
@@ -420,7 +432,7 @@ def approve_all_apps(request, slug):
     messages.success(request, 'All Pending Application Approved')
     return redirect(request.META.get('HTTP_REFERER'))
 
-    
+@method_decorator(login_required, name="dispatch")    
 class UserUpdate(UpdateView):
     model = User
     template_name = 'user_update_form.html'
@@ -429,6 +441,7 @@ class UserUpdate(UpdateView):
     def get_object(self):
         return User.objects.filter(username=self.request.user.username).first()
     
+@method_decorator(login_required, name="dispatch")    
 class DepositView(FormView):
     form_class = TransactionForm
     template_name = 'client/deposit.html'
@@ -440,15 +453,17 @@ class DepositView(FormView):
         transaction.save()
         return super().form_valid(form)
     
+@method_decorator(login_required, name="dispatch")    
 class PayView(TemplateView):
     template_name = 'client/pay.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["transaction"] = Transaction.objects.filter(user=self.request.user).last()
         return context
-def verify_payment_transaction(request, id):
-    transaction = Transaction.objects.filter(id=id).first()
-    request = requests.get('https://api.paystack.co/transaction/verify/'+str(id), headers={'Authorization': 'Bearer '+str(settings.PAYSTACK_SECRET_KEY)})
+@login_required
+def verify_payment_transaction(request, reference):
+    transaction = Transaction.objects.filter(reference=reference).first()
+    request = requests.get('https://api.paystack.co/transaction/verify/'+str(reference), headers={'Authorization': 'Bearer '+str(settings.PAYSTACK_SECRET_KEY)})
     if request.status_code == 200:
         data = request.json()['data']
         print(data)
@@ -463,7 +478,7 @@ def verify_payment_transaction(request, id):
             return JsonResponse({'status': 'failed'})
     else:
         return JsonResponse({'status': 'failed'})
-    
+@login_required 
 def withdraw(request):
     return render(request, 'earner/withdraw.html')
 
