@@ -222,6 +222,7 @@ class Transaction(models.Model):
         (DEPOSIT, 'Deposit'),
         (WITHDRAWAL, 'Withdrawal')
     ]
+    reference = models.UUIDField(default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     transaction_type = models.CharField(max_length=100, choices=TRANSACTION_CHOICES, default=DEPOSIT)
