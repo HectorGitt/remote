@@ -9,7 +9,8 @@ from django.utils.decorators import method_decorator
 from .forms import UserForm, TaskForm, UserTaskForm,TransactionForm, ContactForm, AddParticipantsForm
 from django.contrib.auth.decorators import login_required
 from .models import User, Category,SubCategory, Task, UserTask, UserReceipt, TaskOrder, Transaction, BankAccount
-from django.views.generic import ListView, DetailView, UpdateView, CreateView, TemplateView, FormView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, TemplateView, FormView, View
+from django.contrib.messages.views import SuccessMessageMixin
 import requests
 from django.conf import settings
 from .methods import send_mail
