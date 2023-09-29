@@ -74,10 +74,7 @@ class TaskListView(ListView):
         context['categories'] = Category.objects.all()
         return context
 
-    
-    
-        
-    
+
 class TaskByCategoryListView(ListView):
     template_name = 'jobs.html'
     context_object_name = 'tasks'
@@ -343,7 +340,7 @@ class WalletView(TemplateView):
         context['receipts'] = receipts
         context['receipt_count'] = receipt_count
         return context
-    
+
 @method_decorator(login_required, name="dispatch")    
 class ClientApplication(DetailView):
     model = UserTask
@@ -415,7 +412,7 @@ class TaskApplicationListView(ListView):
         profile = User.objects.filter(username=self.request.user.username).first()
         task = Task.objects.filter(slug=self.kwargs['slug']).first()
         return UserTask.objects.filter(task__owner=profile, task=task).order_by('-date_created')
-    
+
 @login_required   
 def approve_all_apps(request, slug):
     task = Task.objects.filter(slug=slug).first()
@@ -443,7 +440,7 @@ class UserUpdate(SuccessMessageMixin, UpdateView):
 
     def get_object(self):
         return User.objects.filter(username=self.request.user.username).first()
-    
+
 @method_decorator(login_required, name="dispatch")    
 class DepositView(FormView):
     form_class = TransactionForm
@@ -455,7 +452,7 @@ class DepositView(FormView):
         transaction = Transaction(user=user, amount=form.cleaned_data['amount'], transaction_type='DEPOSIT')
         transaction.save()
         return super().form_valid(form)
-    
+
 @method_decorator(login_required, name="dispatch")    
 class PayView(TemplateView):
     template_name = 'client/pay.html'
