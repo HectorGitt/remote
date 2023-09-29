@@ -99,6 +99,7 @@ NPM_BIN_PATH = r"C:/Users/USER/AppData/Roaming/nvm/v19.6.0/npm.cmd"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 if DEBUG is True:
+    NPM_BIN_PATH = '/usr/local/bin/npm'
     DATABASES = {
 
     'default': {
