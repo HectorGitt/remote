@@ -328,10 +328,10 @@ class WalletView(TemplateView):
     
     def get_context_data(self, **kwargs):
         profile = User.objects.filter(username=self.request.user.username).first()
-        deposits = Transaction.objects.filter(user=profile, transaction_type='DEPOSIT').order_by('-date_created')
-        deposit_count = Transaction.objects.filter(user=profile, transaction_type='DEPOSIT', status='APPROVED').count()
-        withdrawals = Transaction.objects.filter(user=profile, transaction_type='WITHDRAWAL').order_by('-date_created')
-        withdrawal_count = Transaction.objects.filter(user=profile, transaction_type='WITHDRAWAL', status='APPROVED').count()
+        deposits = Transaction.objects.filter(user=profile, transaction_type='DEPOSIT').order_by('-date_created')[0:5]
+        deposit_count = Transaction.objects.filter(user=profile, transaction_type='DEPOSIT').count()
+        withdrawals = Transaction.objects.filter(user=profile, transaction_type='WITHDRAWAL').order_by('-date_created')[0:5]
+        withdrawal_count = Transaction.objects.filter(user=profile, transaction_type='WITHDRAWAL').count()
         receipts = UserReceipt.objects.filter(user=profile).order_by('-date_created')[0:5]
         receipt_count = UserReceipt.objects.filter(user=profile).order_by('-date_created').count()
         context = super().get_context_data(**kwargs)
