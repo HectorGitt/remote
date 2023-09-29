@@ -9,6 +9,7 @@ pip install -r requirements.txt
 python manage.py collectstatic --no-input
 
 # build tailwind
+npm install -D tailwindcss
 python manage.py tailwind build
 
 # run database migrations
