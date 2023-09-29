@@ -15,7 +15,6 @@ urlpatterns = [
     path('post_job_new/', views.post_job_new, name='post_job_new'),
     path('api/load_subcategories/<int:id>/', views.load_subcategories, name='subcategories'),
     path('posted_tasks/', views.PostedTaskListView.as_view(), name='posted_tasks'),
-    
     path('task/<slug:slug>/', views.task_details, name='task'),
     path('task/<slug:slug>/apply/', views.apply, name='apply'),
     path('task/<slug:slug>/pause/', views.pause_task, name='pause_task'),
