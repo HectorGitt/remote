@@ -433,10 +433,12 @@ def approve_all_apps(request, slug):
     return redirect(request.META.get('HTTP_REFERER'))
 
 @method_decorator(login_required, name="dispatch")    
-class UserUpdate(UpdateView):
+class UserUpdate(SuccessMessageMixin, UpdateView):
     model = User
     template_name = 'user_update_form.html'
-    fields = ['first_name', 'last_name', 'email', 'gender', 'role']
+    fields = ['first_name', 'last_name', 'email', 'gender']
+    success_message = 'Profile Updated Successfully'
+    success_url = reverse_lazy('dashboard')
 
     def get_object(self):
         return User.objects.filter(username=self.request.user.username).first()
