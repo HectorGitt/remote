@@ -33,7 +33,10 @@
                   <a href="/user_update/" class="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white">Profile Settings</a>
                 </li>
                 <li>
-                  <a href="/earnings/" class="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white">Earnings</a>
+                  <p class="block px-4 py-2 text-sm  text-gray-500 ">Role: {{user.role}}</p>
+                </li>
+                <li>
+                  <a href="/switch_role/" class="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white">Switch to {% if user.role == 'CLIENT' %} Worker {% else %} Client {% endif %}  </a>
                 </li>
                 <li>
                   <a href="/accounts/logout/" class="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white">Sign out</a>
@@ -54,24 +57,62 @@
           <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
               <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                   <li>
-                      <a href="/" class="block py-2 pr-4 pl-3 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 text-white" aria-current="page">Home</a>
+                      
+                      {% if request.path == '/' %}
+                      <a href="{% url 'home' %}" class="block py-2 pr-4 pl-3 rounded 
+                       lg:text-primary-700 bg-primary-700 text-white lg:bg-transparent  lg:p-0 " aria-current="page">
+                       Home</a>
+                       {%else%} 
+                       <a href="{% url 'home' %}" class="block py-2 pr-4 pl-3 rounded 
+                       text-gray-400 lg:hover:text-white hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700 lg:bg-transparent  lg:p-0 ">
+                       Home</a>
+                       {%endif%} 
                   </li>
                   <li>
-                    <a href="{% url 'dashboard' %}" class="block py-2 pr-4 lg:p-0 text-gray-400 lg:hover:text-white hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700">Dashboard</a>
-                </li>
-                  <li>
-                      <a href="{% url 'tasks' %}" class="block py-2 pr-4 pl-3 border-b  lg:border-0 lg:p-0 text-gray-400 lg:hover:text-white hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700">Tasks</a>
-                  </li>
-                  
-                  <li>
-                      <a href="{% url 'wallet' %}" class="block py-2 pr-4 pl-3  border-b lg:p-0 text-gray-400 lg:hover:text-white hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700">Wallet</a>
-                  </li>
-                  <li>
-                      <a href="{% url 'support' %}" class="block py-2 pr-4 pl-3 border-b  lg:border-0 lg:p-0 text-gray-400 lg:hover:text-white hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700">Support</a>
+                      {% if request.path == '/dashboard/' %}
+                      <a href="{% url 'dashboard' %}" class="block py-2 pr-4 pl-3 rounded 
+                       lg:text-primary-700 bg-primary-700 text-white lg:bg-transparent  lg:p-0 " aria-current="page">
+                       Dashboard</a>
+                       {%else%} 
+                       <a href="{% url 'dashboard' %}" class="block py-2 pr-4 pl-3 rounded 
+                       text-gray-400 lg:hover:text-white hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700 lg:bg-transparent  lg:p-0 ">
+                       Dashboard</a>
+                       {%endif%}
                   </li>
                   <li>
-                    <a href="{% url 'user_update' %}" class="block py-2 pr-4 pl-3 border-b  lg:border-0 lg:p-0 text-gray-400 lg:hover:text-white hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700">Profile</a>
-                </li>
+                      {% if request.path == '/tasks/' %}
+                      <a href="{% url 'tasks' %}" class="block py-2 pr-4 pl-3 rounded 
+                       lg:text-primary-700 bg-primary-700 text-white lg:bg-transparent  lg:p-0 " aria-current="page">
+                       Tasks</a>
+                       {%else%} 
+                       <a href="{% url 'tasks' %}" class="block py-2 pr-4 pl-3 rounded 
+                       text-gray-400 lg:hover:text-white hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700 lg:bg-transparent  lg:p-0 ">
+                       Tasks</a>
+                       {%endif%}
+                  </li>
+
+                  <li>
+                      {% if request.path == '/wallet/' %}
+                      <a href="{% url 'wallet' %}" class="block py-2 pr-4 pl-3 rounded 
+                       lg:text-primary-700 bg-primary-700 text-white lg:bg-transparent  lg:p-0 " aria-current="page">
+                       Wallet</a>
+                       {%else%} 
+                       <a href="{% url 'wallet' %}" class="block py-2 pr-4 pl-3 rounded 
+                       text-gray-400 lg:hover:text-white hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700 lg:bg-transparent  lg:p-0 ">
+                       Wallet</a>
+                       {%endif%}
+                  </li>
+                  <li>
+                      {% if request.path == '/support/' %}
+                      <a href="{% url 'support' %}" class="block py-2 pr-4 pl-3 rounded 
+                       lg:text-primary-700 bg-primary-700 text-white lg:bg-transparent  lg:p-0 " aria-current="page">
+                       Support</a>
+                       {%else%} 
+                       <a href="{% url 'support' %}" class="block py-2 pr-4 pl-3 rounded 
+                       text-gray-400 lg:hover:text-white hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700 lg:bg-transparent  lg:p-0 ">
+                       Support</a>
+                       {%endif%}
+                  </li>
                 {% if user.is_superuser %}
                 <li>
                   <a href="{% url 'admin:index' %}" class="block py-2 pr-4 pl-3 border-b  lg:border-0 lg:p-0 text-gray-400 lg:hover:text-white hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700">Admin
