@@ -117,8 +117,9 @@ if DEBUG is True:
     }
 
 }
+#IN PRODUCTION
 elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
-    NPM_BIN_PATH = '/usr/local/bin/npm'
+    NPM_BIN_PATH = '/usr/bin/npm' #render npm path
     if os.getenv("DATABASE_URL", None) is None:
         raise Exception("DATABASE_URL environment variable not defined")
     DATABASES = {
