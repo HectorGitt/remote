@@ -50,4 +50,5 @@ class ContactForm(forms.Form):
     subject = forms.CharField(required=True)
     message = forms.CharField(widget=forms.Textarea, required=True)
 
-    
+class AddParticipantsForm(forms.Form):
+    no_of_participants = forms.IntegerField(required=True, min_value=1, max_value=9999999999)
