@@ -8,12 +8,6 @@ pip install -r requirements.txt
 # collect static files
 python manage.py collectstatic --no-input
 
-# build tailwind
-unset NODE_OPTIONS
-npm install rimraf
-npm install -D tailwindcss
-python manage.py tailwind build
-
 # run database migrations
 python manage.py makemigrations gigs
 python manage.py migrate
