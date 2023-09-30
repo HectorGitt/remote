@@ -9,6 +9,7 @@ pip install -r requirements.txt
 python manage.py collectstatic --no-input
 
 # build tailwind
+unset NODE_OPTIONS
 npm install rimraf
 npm install -D tailwindcss
 python manage.py tailwind build
