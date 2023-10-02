@@ -269,12 +269,12 @@
               
             </section>
             <div class='gap-4 grid md:grid-cols-1 justify-center'>
-              <div class='bg-white shadow rounded-lg flex flex-col justify-center items-center'>
+              <div class='bg-white shadow rounded-lg flex flex-col items-center'>
                 <h3 class="text-lg  my-4 font-medium text-center text-gray-900">STATS</h3>
                 {% if task_count %}
                 <canvas id="myChart" style="width:50%;max-width:700px"></canvas>
                 {% else %}
-                <div class=" text-center flex items-center flex-grow px-4 py-16 mx-5 text-gray-400 text-3xl font-semibold">No Tasks</div>
+                <div class=" text-center flex items-center flex-grow justify-center px-4 py-16 mx-5 text-gray-400 text-3xl font-semibold">No Tasks</div>
                 {% endif %}
               </div>
             </div>
