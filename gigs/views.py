@@ -474,6 +474,8 @@ def verify_payment_transaction(request, reference):
             user.save()
             return JsonResponse({'status': 'success'})
         else:
+            message = f'The User ({user}) made a Transaction of Ref ({transaction.reference}) But was not Properly Completed'
+            send_mail('RemoteGig: Transaction Alert','',message, [settings.EMAIL_HOST_USER])
             return JsonResponse({'status': 'failed'})
     else:
         return JsonResponse({'status': 'failed'})
