@@ -479,6 +479,37 @@ def verify_payment_transaction(request, reference):
             return JsonResponse({'status': 'failed'})
     else:
         return JsonResponse({'status': 'failed'})
+
+@login_required 
+def approve_payment_transaction(request, id):
+    transaction = Transaction.objects.filter(id=id).first()
+    if transaction:
+        if transaction.status == 'PENDING':
+            transaction.approve()
+            messages.success(request, 'Transaction Approved')
+            return redirect(request.META.get('HTTP_REFERER'))
+        else:
+            messages.error(request, 'Transaction Already Approved')
+            return redirect('dashboard')
+    else:
+        messages.error(request, 'Transaction Not Found')
+        return redirect('dashboard')
+    
+@login_required 
+def reject_payment_transaction(request, id):
+    transaction = Transaction.objects.filter(id=id).first()
+    if transaction:
+        if transaction.status == 'PENDING':
+            transaction.reject()
+            messages.success(request, 'Transaction Rejected')
+            return redirect(request.META.get('HTTP_REFERER'))
+        else:
+            messages.error(request, 'Transaction Already Rejected')
+            return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        messages.error(request, 'Transaction Not Found')
+        return redirect(request.META.get('HTTP_REFERER'))
+    
 @login_required
 def withdraw(request):
     return render(request, 'earner/withdraw.html')
