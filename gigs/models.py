@@ -18,6 +18,7 @@ class User(AbstractUser):
     Worker = 'WORKER'
     GENDER = [ (Male,'Male'), (Female, 'Female')]
     ROLE = [ (Client, 'Client'), (Worker, 'Worker')]
+    email = models.EmailField(unique=True)
     gender = models.CharField(choices=GENDER, max_length=1)
     wallet_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     earnings = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
