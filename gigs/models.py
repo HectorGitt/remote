@@ -89,7 +89,7 @@ class Task(models.Model):
     cost = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     tags = models.CharField(max_length=100)
-    sample_image = models.ImageField(upload_to='media/', blank=True, null=True)
+    sample_image = models.ImageField(blank=True, null=True)
     #admin acceptance status
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default=PENDING)
     #user status
@@ -171,9 +171,9 @@ class UserTask(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     comments = models.TextField(null=True)
-    image1 = models.ImageField(upload_to='media/', blank=True, null=True)
-    image2 = models.ImageField(upload_to='media/', blank=True, null=True)
-    image3 = models.ImageField(upload_to='media/', blank=True, null=True)
+    image1 = models.ImageField(blank=True, null=True)
+    image2 = models.ImageField(blank=True, null=True)
+    image3 = models.ImageField(blank=True, null=True)
 
     def __str__(self):
         return self.user.username + ' - ' + self.task.title
