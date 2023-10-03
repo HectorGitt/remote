@@ -106,7 +106,7 @@ def post_job_new(request):
                     messages.error(request, f'Minimum Price per User must be greater than {sub_category.min_price}')
                     return render(request, 'post_gig/post_gig.html', {'form': form})
                 cost = task.unit_price * task.total_participants
-                task.cost = cost + Decimal(cost * 0.15)
+                task.cost = cost + Decimal(cost * Decimal(0.15))
                 owner = User.objects.filter(username=request.user.username).first()
                 if owner.wallet_balance < task.cost:
                     messages.error(request, f'Wallet balance is low')
