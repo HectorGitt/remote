@@ -96,8 +96,8 @@ class Task(models.Model):
     state = models.CharField(max_length=100, choices=STATE_CHOICES, default=IN_PROGRESS)
     date_created = models.DateTimeField(auto_now_add=True, editable=False)
     rejection_reason = models.TextField(null=True, blank=True)
-    active = ActiveManager()
     objects = models.Manager()
+    active = ActiveManager()
 
     def __str__(self):
         return self.title
