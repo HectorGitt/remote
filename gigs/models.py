@@ -91,7 +91,7 @@ class Task(models.Model):
     tags = models.CharField(max_length=100)
     sample_image = models.ImageField(upload_to='media/', blank=True, null=True)
     #admin acceptance status
-    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=PENDING)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default=PENDING)
     #user status
     state = models.CharField(max_length=100, choices=STATE_CHOICES, default=IN_PROGRESS)
     date_created = models.DateTimeField(auto_now_add=True, editable=False)
