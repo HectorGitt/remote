@@ -194,9 +194,6 @@
                     {% for task in posted_tasks %}
                     <li class='border-b-2 py-1'>
                       <a class="flex items-center" href={{task.get_url}}>
-                        <div class="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
-                          <img src="https://randomuser.me/api/portraits/women/82.jpg" alt="Annette Watson profile picture">
-                        </div>
                         <span class="text-gray-600">{{task.title}}</span>
                         
                         <span class="ml-auto font-semibold">{% if is_client %}{{task.status}}{% else %}{{task.owner}}{% endif %}</span>
