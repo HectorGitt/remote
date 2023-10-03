@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Category, Task, UserTask, SubCategory, Transaction
+from .models import User, Category, Task, UserTask, SubCategory, Transaction, TaskOrder
 from .methods import methods
 # Register your models here.
 
@@ -30,3 +30,8 @@ class TransactionAdmin(admin.ModelAdmin, methods):
 @admin.register(SubCategory)
 class SubCategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'category']
+
+@admin.register(TaskOrder)
+class TaskOrderAdmin(admin.ModelAdmin):
+    list_display = ['task', 'user', 'date_created']
+    list_filter = ['task', 'user']
