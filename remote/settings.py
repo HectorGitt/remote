@@ -228,7 +228,7 @@ STATICFILES_DIRS = [
     'theme/',
 ]
 MEDIA_ROOT=config('MEDIA_ROOT')
-MEDIA_URL=''
+MEDIA_URL='static'
 
 ADMINS = [('Hector', 'adeniyi.olaitanhector@yahoo.com')]
 
@@ -247,8 +247,8 @@ AUTH_USER_MODEL = 'gigs.User'
 PAYSTACK_SECRET_KEY = config('PAYSTACK_SECRET_KEY')
 
 #EMAIL SETTINGS
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ADMINS = [('Hector', 'adeniyi.olaitanhector@yahoo.com')]
 
 EMAIL_HOST= config('EMAIL_HOST')
