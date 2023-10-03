@@ -157,7 +157,7 @@ def task_details(request, slug):
     form = UserTaskForm()
     return render(request, 'client/task_details.html', {'task': task, 'is_owner': is_owner, 'form': form})
 
-@method_decorator(login_required, name="dispatch")
+@login_required
 def apply(request, slug):
     task = Task.objects.filter(slug=slug).first()
     user = User.objects.filter(username=request.user.username).first()
