@@ -228,7 +228,7 @@ STATICFILES_DIRS = [
     'theme/',
 ]
 MEDIA_ROOT=config('MEDIA_ROOT')
-MEDIA_URL=''
+MEDIA_URL='media/'
 
 ADMINS = [('Hector', 'adeniyi.olaitanhector@yahoo.com')]
 
