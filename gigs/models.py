@@ -198,6 +198,9 @@ class TaskOrder(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.user.username + ' - ' + self.task.title
+
 class UserReceipt(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
