@@ -191,6 +191,9 @@ def apply(request, slug):
             print('You cannot apply to your own task')
             messages.warning(request, 'You cannot apply to your own task')
             return redirect('home')
+    else:
+        messages.error(request, 'Wrong Request😉')
+        return redirect('dashboard')
 
 class PostedTaskListView(ListView):
     model = Task
