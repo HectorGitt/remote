@@ -111,6 +111,7 @@
             {{form.image3}}
           </div>  
         </div>
+        <button type='submit' class='none'></button>
         <button id="applyButton" data-modal-toggle="applyModal" class="flex justify-center text-white mt-5 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" type="button">
         Apply
         </button>
@@ -121,13 +122,6 @@
   {% endif %}
   {% include '../components/modal.html' with modal_id='applyModal' title='Are you sure you have completed the task' disclaimer='You will be restricted if you apply without performing the task' link='apply/' %}
   {% include 'components/modal.html' with modal_id='terminateModal' title='Are you sure you want to terminate this task?' disclaimer='You wont be able to restart this task' link='end/' %}
-{% block scripts %}
-<script>
-  const handleSubmit = (e) => {
-    form = document.getElementById('app_form')
-    form.submit()
-  }
-</script>
-{% endblock %}
+
 {% endblock %}
 
