@@ -355,9 +355,11 @@ class ClientApplication(DetailView):
             if user_task.task.owner == request.user or user_task.user == request.user:
                 return super().get(request, *args, **kwargs)
             else:
-                return redirect('home')
+                messages.error(request, 'You dont have the permission🥲')
+                return redirect('dashboard')
         else:
-            return redirect('home')
+            messages.error(request, 'Application Not Found🥲')
+            return redirect('dashboard')
 
 @login_required
 def approve_app(request, id):
