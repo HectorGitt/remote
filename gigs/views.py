@@ -352,7 +352,7 @@ class ClientApplication(DetailView):
     def get(self, request, *args, **kwargs):
         user_task = UserTask.objects.filter(id=self.kwargs['pk']).first()
         if user_task:
-            if user_task.task.owner == request.user:
+            if user_task.task.owner == request.user or user_task.user == request.user:
                 return super().get(request, *args, **kwargs)
             else:
                 return redirect('home')
