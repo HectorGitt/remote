@@ -247,8 +247,6 @@
                     {% for application in applications %}
                     <li >
                       <a class="flex items-center p-2" href={{application.get_url}}>
-                        <div class="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
-                        </div>
                         <span class="text-gray-600">{{application.user.username}}</span>
                         <span class="ml-auto font-semibold">{{application.task.title}}</span>
                         <span class="ml-auto font-semibold">{{application.status}}</span>
