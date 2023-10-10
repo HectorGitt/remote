@@ -27,14 +27,20 @@
                   <a href="/dashboard/" class="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white">Dashboard</a>
                 </li>
                 <li>
-                  <a href="/tasks/" class="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white">Jobs</a>
-                </li>
-                <li>
                   <a href="/user_update/" class="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white">Profile Settings</a>
                 </li>
                 <li>
                   <p class="block px-4 py-2 text-sm  text-gray-500 ">Role: {{user.role}}</p>
                 </li>
+                {% if user.role == 'CLIENT' %}
+                <li>
+                  <a href={% url "posted_tasks" %} class="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white">Posted Tasks</a>
+                <li>
+                {% else %}
+                <li>
+                  <a href={% url "applications" %} class="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white">Applied Tasks</a>
+                </li>
+                {% endif %}
                 <li>
                   <a href="/switch_role/" class="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white">Switch to {% if user.role == 'CLIENT' %} Worker {% else %} Client {% endif %}  </a>
                 </li>
