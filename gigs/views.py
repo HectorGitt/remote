@@ -205,6 +205,10 @@ class PostedTaskListView(ListView):
     def get_queryset(self):
         profile = User.objects.filter(username=self.request.user.username).first()
         return Task.objects.filter(owner=profile).order_by('-date_created')
+    def get_context_data(self):
+        context = super().get_context_data()
+        context['categories'] = Category.objects.all()
+        return context
 
 @login_required
 def end_task(request, slug):
