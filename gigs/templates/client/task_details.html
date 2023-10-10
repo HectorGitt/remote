@@ -54,17 +54,17 @@
   </div>
   {% else %}
   {% if is_owner %}
-  <div class="flex justify-evenly m-5">
+  <div class="flex flex-col sm:flex-row justify-evenly m-5">
     <a href="applications/" type="button" class="text-primary-700 hover:text-white border border-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-primary-500 dark:text-primary-500 dark:hover:text-white dark:hover:bg-primary-500 dark:focus:ring-primary-800">Application List</a>
     <a href={% url 'add_participants' slug=task.slug %} type="button" class="text-secondary-700 hover:text-white border border-secondary-700 hover:bg-secondary-800 focus:ring-4 focus:outline-none focus:ring-secondary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-secondary-500 dark:text-secondary-500 dark:hover:text-white dark:hover:bg-secondary-500 dark:focus:ring-secondary-800">Add Participants</a>
   </div>
-  <div class="flex justify-evenly m-5">
+  <div class="flex flex-col sm:flex-row justify-evenly m-5 gap-2">
       {% if task.state == 'PAUSED' %}
       <a href='resume/' class="block text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" type="button">
         Resume
         </a>
       {% elif task.state == 'IN_PROGRESS' %}
-      <a href='pause/' class="block text-white bg-secondary-700 hover:bg-secondary-800 focus:ring-4 focus:outline-none focus:ring-secondary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-secondary-600 dark:hover:bg-secondary-700 dark:focus:ring-secondary-800" type="button">
+      <a href='pause/' class="block text-white bg-secondary-700 hover:bg-secondary-800 focus:ring-4 focus:outline-none focus:ring-secondary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="button">
       Pause
       </a>
       {% endif %}
