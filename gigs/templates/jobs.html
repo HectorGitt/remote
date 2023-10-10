@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-    Posted Jobs
+    {% if request.path == '/tasks/' %}
+    Tasks
+    {% else %}
+    Posted Tasks
+    {% endif %}
 {% endblock  %}
 {% block content %}
 {% include 'nav.html' %}
-<section class="bg-gray-50 py-3 sm:py-5 min-h-screen">
-    {% include 'components/list_view.html' with view='jobs' %}
+<section class="bg-gray-50 py-3 sm:py-5 min-h-screen px-4 lg:px-12">
+  {% if request.path == '/tasks/' %}
+    {% include 'components/page_heading.html' with title='All Tasks' %}
+    {% include 'components/list_view.html' with view='tasks' %}
+  {% else %}
+    {% include 'components/page_heading.html' with title='Posted Tasks' %}
+    {% include 'components/list_view.html' with view='posted_tasks' %}
+  {% endif %}
   </section>
 
   
